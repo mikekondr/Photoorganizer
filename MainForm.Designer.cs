@@ -34,6 +34,10 @@
             splitContainer1 = new SplitContainer();
             treeView1 = new TreeView();
             imageList1 = new ImageList(components);
+            dataGridView1 = new DataGridView();
+            icon = new DataGridViewImageColumn();
+            name = new DataGridViewTextBoxColumn();
+            type = new DataGridViewTextBoxColumn();
             menuStrip1 = new MenuStrip();
             файлToolStripMenuItem = new ToolStripMenuItem();
             создатьToolStripMenuItem = new ToolStripMenuItem();
@@ -78,19 +82,16 @@
             toolStripContainer1 = new ToolStripContainer();
             bgReadFolders = new System.ComponentModel.BackgroundWorker();
             bgReadFiles = new System.ComponentModel.BackgroundWorker();
-            dataGridView1 = new DataGridView();
-            currentFolderBindingSource = new BindingSource(components);
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             menuStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
             toolStripContainer1.ContentPanel.SuspendLayout();
             toolStripContainer1.TopToolStripPanel.SuspendLayout();
             toolStripContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)currentFolderBindingSource).BeginInit();
             SuspendLayout();
             // 
             // splitContainer1
@@ -137,8 +138,49 @@
             imageList1.Images.SetKeyName(1, "computer.png");
             imageList1.Images.SetKeyName(2, "drive.png");
             imageList1.Images.SetKeyName(3, "empty-folder.png");
-            imageList1.Images.SetKeyName(4, "new-document.png");
+            imageList1.Images.SetKeyName(4, "unknown-document.png");
             imageList1.Images.SetKeyName(5, "image.png");
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.AllowUserToDeleteRows = false;
+            dataGridView1.AllowUserToOrderColumns = true;
+            dataGridView1.AllowUserToResizeRows = false;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { icon, name, type });
+            dataGridView1.Dock = DockStyle.Fill;
+            dataGridView1.EditMode = DataGridViewEditMode.EditProgrammatically;
+            dataGridView1.Location = new Point(0, 0);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.ReadOnly = true;
+            dataGridView1.RowHeadersVisible = false;
+            dataGridView1.RowTemplate.Height = 25;
+            dataGridView1.Size = new Size(526, 401);
+            dataGridView1.TabIndex = 0;
+            // 
+            // icon
+            // 
+            icon.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            icon.HeaderText = "";
+            icon.MinimumWidth = 20;
+            icon.Name = "icon";
+            icon.ReadOnly = true;
+            icon.Resizable = DataGridViewTriState.False;
+            icon.Width = 20;
+            // 
+            // name
+            // 
+            name.HeaderText = "Найменування";
+            name.Name = "name";
+            name.ReadOnly = true;
+            name.Width = 250;
+            // 
+            // type
+            // 
+            type.HeaderText = "Тип";
+            type.Name = "type";
+            type.ReadOnly = true;
             // 
             // menuStrip1
             // 
@@ -467,26 +509,7 @@
             // bgReadFiles
             // 
             bgReadFiles.DoWork += bgReadFiles_DoWork;
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.AllowUserToAddRows = false;
-            dataGridView1.AllowUserToDeleteRows = false;
-            dataGridView1.AutoGenerateColumns = false;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.DataSource = currentFolderBindingSource;
-            dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.Location = new Point(0, 0);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.ReadOnly = true;
-            dataGridView1.RowTemplate.Height = 25;
-            dataGridView1.Size = new Size(526, 401);
-            dataGridView1.TabIndex = 0;
-            // 
-            // currentFolderBindingSource
-            // 
-            currentFolderBindingSource.AllowNew = false;
-            currentFolderBindingSource.DataSource = typeof(CurrentFolder);
+            bgReadFiles.RunWorkerCompleted += bgReadFiles_RunWorkerCompleted;
             // 
             // MainForm
             // 
@@ -502,6 +525,7 @@
             splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             toolStrip1.ResumeLayout(false);
@@ -511,8 +535,6 @@
             toolStripContainer1.TopToolStripPanel.PerformLayout();
             toolStripContainer1.ResumeLayout(false);
             toolStripContainer1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)currentFolderBindingSource).EndInit();
             ResumeLayout(false);
         }
 
@@ -566,6 +588,8 @@
         private ImageList imageList1;
         private System.ComponentModel.BackgroundWorker bgReadFiles;
         private DataGridView dataGridView1;
-        private BindingSource currentFolderBindingSource;
+        private DataGridViewImageColumn icon;
+        private DataGridViewTextBoxColumn name;
+        private DataGridViewTextBoxColumn type;
     }
 }

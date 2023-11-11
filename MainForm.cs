@@ -1,5 +1,6 @@
 using System;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace PhotoOrganizer
 {
@@ -28,7 +29,7 @@ namespace PhotoOrganizer
             if (rootNode.Parent == null)
                 tv.Nodes[0].Nodes.Clear();
 
-            MainModule.readFolders(tv, rootNode, Regex.Replace(rootNode.FullPath, "((" + tv.Nodes[0].Text + ")(\\\\)?)", ""));
+            MainModule.readFolders(tv, rootNode, treeview1_getFullPath(rootNode));
         }
 
         private void bgReadFolders_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
@@ -41,9 +42,29 @@ namespace PhotoOrganizer
 
         private void bgReadFiles_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-
+            MainModule.CurrentFolder.ReadFiles();
         }
 
+        private void bgReadFiles_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+            dataGridView1.Rows.Clear();
+            foreach (var item in MainModule.CurrentFolder.items)
+            {
+                DataGridViewRow row = dataGridView1.Rows[dataGridView1.Rows.Add()];
+                row.Cells["name"].Value = item.name;
+                row.Cells["type"].Value = item.type;
+                if (item.type == "jpg")
+                {
+                    row.Cells["icon"].Value = imageList1.Images[5];
+                }
+                else
+                {
+                    row.Cells["icon"].Value = imageList1.Images[4];
+                    row.DefaultCellStyle.ForeColor = Color.Gray;
+                }
+
+            }
+        }
 
         /// TreeView
         /// 
@@ -77,8 +98,17 @@ namespace PhotoOrganizer
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
-
+            MainModule.ChangeCurrentFolder(treeview1_getFullPath(e.Node));
+            bgReadFiles.RunWorkerAsync();
         }
+
+        private string treeview1_getFullPath(TreeNode node)
+        {
+            return Regex.Replace(node.FullPath, "((" + treeView1.Nodes[0].Text + ")(\\\\)?)", "");
+        }
+
+        /// dataGridView1
+        /// 
 
     }
 }

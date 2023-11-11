@@ -12,6 +12,9 @@ namespace PhotoOrganizer
             _currentFolder = new CurrentFolder();
         }
 
+        static public void ChangeCurrentFolder(string path) =>
+            _currentFolder = new CurrentFolder(path);
+
         static public void readFolders(TreeView treeView, TreeNode rootNode, string path)
         {
             if (path == "")
