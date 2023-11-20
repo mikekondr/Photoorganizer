@@ -28,74 +28,74 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Мій комп\'ютер", 1, 1);
+            components = new System.ComponentModel.Container();
+            TreeNode treeNode1 = new TreeNode("Мій комп'ютер", 1, 1);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.treeView1 = new System.Windows.Forms.TreeView();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.icon = new System.Windows.Forms.DataGridViewImageColumn();
-            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.type = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dateCreated = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dateModified = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dateTaken = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.создатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
-            this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.сохранитькакToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.печатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.предварительныйпросмотрToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.изменитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.отменитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.повторитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.вырезатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.копироватьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.вставитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.выбратьвсеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.инструментыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.настройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.параметрыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.содержимоеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.индексToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.поискToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.опрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.создатьToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.открытьToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.сохранитьToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.печатьToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            this.вырезатьToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.копироватьToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.вставитьToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
-            this.справкаToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
-            this.bgReadFolders = new System.ComponentModel.BackgroundWorker();
-            this.bgReadFiles = new System.ComponentModel.BackgroundWorker();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.menuStrip1.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
-            this.toolStripContainer1.ContentPanel.SuspendLayout();
-            this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
-            this.toolStripContainer1.SuspendLayout();
-            this.SuspendLayout();
+            splitContainer1 = new SplitContainer();
+            treeView1 = new TreeView();
+            imageList1 = new ImageList(components);
+            dataGridView1 = new DataGridView();
+            icon = new DataGridViewImageColumn();
+            name = new DataGridViewTextBoxColumn();
+            type = new DataGridViewTextBoxColumn();
+            dateCreated = new DataGridViewTextBoxColumn();
+            dateModified = new DataGridViewTextBoxColumn();
+            dateTaken = new DataGridViewTextBoxColumn();
+            menuStrip1 = new MenuStrip();
+            файлToolStripMenuItem = new ToolStripMenuItem();
+            создатьToolStripMenuItem = new ToolStripMenuItem();
+            открытьToolStripMenuItem = new ToolStripMenuItem();
+            toolStripSeparator = new ToolStripSeparator();
+            сохранитьToolStripMenuItem = new ToolStripMenuItem();
+            сохранитькакToolStripMenuItem = new ToolStripMenuItem();
+            toolStripSeparator1 = new ToolStripSeparator();
+            печатьToolStripMenuItem = new ToolStripMenuItem();
+            предварительныйпросмотрToolStripMenuItem = new ToolStripMenuItem();
+            toolStripSeparator2 = new ToolStripSeparator();
+            выходToolStripMenuItem = new ToolStripMenuItem();
+            изменитьToolStripMenuItem = new ToolStripMenuItem();
+            отменитьToolStripMenuItem = new ToolStripMenuItem();
+            повторитьToolStripMenuItem = new ToolStripMenuItem();
+            toolStripSeparator3 = new ToolStripSeparator();
+            вырезатьToolStripMenuItem = new ToolStripMenuItem();
+            копироватьToolStripMenuItem = new ToolStripMenuItem();
+            вставитьToolStripMenuItem = new ToolStripMenuItem();
+            toolStripSeparator4 = new ToolStripSeparator();
+            выбратьвсеToolStripMenuItem = new ToolStripMenuItem();
+            инструментыToolStripMenuItem = new ToolStripMenuItem();
+            настройкиToolStripMenuItem = new ToolStripMenuItem();
+            параметрыToolStripMenuItem = new ToolStripMenuItem();
+            справкаToolStripMenuItem = new ToolStripMenuItem();
+            содержимоеToolStripMenuItem = new ToolStripMenuItem();
+            индексToolStripMenuItem = new ToolStripMenuItem();
+            поискToolStripMenuItem = new ToolStripMenuItem();
+            toolStripSeparator5 = new ToolStripSeparator();
+            опрограммеToolStripMenuItem = new ToolStripMenuItem();
+            toolStrip1 = new ToolStrip();
+            создатьToolStripButton = new ToolStripButton();
+            открытьToolStripButton = new ToolStripButton();
+            сохранитьToolStripButton = new ToolStripButton();
+            печатьToolStripButton = new ToolStripButton();
+            toolStripSeparator6 = new ToolStripSeparator();
+            вырезатьToolStripButton = new ToolStripButton();
+            копироватьToolStripButton = new ToolStripButton();
+            вставитьToolStripButton = new ToolStripButton();
+            toolStripSeparator7 = new ToolStripSeparator();
+            справкаToolStripButton = new ToolStripButton();
+            toolStripContainer1 = new ToolStripContainer();
+            bgReadFolders = new System.ComponentModel.BackgroundWorker();
+            bgReadFiles = new System.ComponentModel.BackgroundWorker();
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
+            splitContainer1.Panel1.SuspendLayout();
+            splitContainer1.Panel2.SuspendLayout();
+            splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            menuStrip1.SuspendLayout();
+            toolStrip1.SuspendLayout();
+            toolStripContainer1.ContentPanel.SuspendLayout();
+            toolStripContainer1.TopToolStripPanel.SuspendLayout();
+            toolStripContainer1.SuspendLayout();
+            SuspendLayout();
             // 
             // splitContainer1
             // 
@@ -118,21 +118,21 @@
             // 
             // treeView1
             // 
-            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView1.ImageIndex = 0;
-            this.treeView1.ImageList = this.imageList1;
-            this.treeView1.Location = new System.Drawing.Point(0, 0);
-            this.treeView1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.treeView1.Name = "treeView1";
+            treeView1.Dock = DockStyle.Fill;
+            treeView1.ImageIndex = 0;
+            treeView1.ImageList = imageList1;
+            treeView1.Location = new Point(0, 0);
+            treeView1.Name = "treeView1";
             treeNode1.ImageIndex = 1;
             treeNode1.Name = "Узел0";
             treeNode1.SelectedImageIndex = 1;
-            treeNode1.Text = "Мій комп\'ютер";
-            this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
-            this.treeView1.SelectedImageIndex = 0;
-            this.treeView1.Size = new System.Drawing.Size(308, 545);
-            this.treeView1.TabIndex = 0;
+            treeNode1.Text = "Мій комп'ютер";
+            treeView1.Nodes.AddRange(new TreeNode[] { treeNode1 });
+            treeView1.SelectedImageIndex = 0;
+            treeView1.Size = new Size(270, 401);
+            treeView1.TabIndex = 0;
+            treeView1.BeforeExpand += treeView1_BeforeExpand;
+            treeView1.AfterSelect += treeView1_AfterSelect;
             // 
             // imageList1
             // 
@@ -221,6 +221,47 @@
             this.dateTaken.Name = "dateTaken";
             this.dateTaken.ReadOnly = true;
             this.dateTaken.Width = 125;
+            // 
+            // icon
+            // 
+            icon.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            icon.HeaderText = "";
+            icon.MinimumWidth = 20;
+            icon.Name = "icon";
+            icon.ReadOnly = true;
+            icon.Resizable = DataGridViewTriState.False;
+            icon.Width = 20;
+            // 
+            // name
+            // 
+            name.HeaderText = "Найменування";
+            name.Name = "name";
+            name.ReadOnly = true;
+            name.Width = 250;
+            // 
+            // type
+            // 
+            type.HeaderText = "Тип";
+            type.Name = "type";
+            type.ReadOnly = true;
+            // 
+            // dateCreated
+            // 
+            dateCreated.HeaderText = "Дата створення";
+            dateCreated.Name = "dateCreated";
+            dateCreated.ReadOnly = true;
+            // 
+            // dateModified
+            // 
+            dateModified.HeaderText = "Дата зміни";
+            dateModified.Name = "dateModified";
+            dateModified.ReadOnly = true;
+            // 
+            // dateTaken
+            // 
+            dateTaken.HeaderText = "Дата зйомки";
+            dateTaken.Name = "dateTaken";
+            dateTaken.ReadOnly = true;
             // 
             // menuStrip1
             // 
@@ -434,32 +475,33 @@
             // 
             // содержимоеToolStripMenuItem
             // 
-            this.содержимоеToolStripMenuItem.Name = "содержимоеToolStripMenuItem";
-            this.содержимоеToolStripMenuItem.Size = new System.Drawing.Size(198, 26);
-            this.содержимоеToolStripMenuItem.Text = "&Содержимое";
+            содержимоеToolStripMenuItem.Name = "содержимоеToolStripMenuItem";
+            содержимоеToolStripMenuItem.Size = new Size(180, 22);
+            содержимоеToolStripMenuItem.Text = "&Содержимое";
             // 
             // индексToolStripMenuItem
             // 
-            this.индексToolStripMenuItem.Name = "индексToolStripMenuItem";
-            this.индексToolStripMenuItem.Size = new System.Drawing.Size(198, 26);
-            this.индексToolStripMenuItem.Text = "&Индекс";
+            индексToolStripMenuItem.Name = "индексToolStripMenuItem";
+            индексToolStripMenuItem.Size = new Size(180, 22);
+            индексToolStripMenuItem.Text = "&Индекс";
             // 
             // поискToolStripMenuItem
             // 
-            this.поискToolStripMenuItem.Name = "поискToolStripMenuItem";
-            this.поискToolStripMenuItem.Size = new System.Drawing.Size(198, 26);
-            this.поискToolStripMenuItem.Text = "&Поиск";
+            поискToolStripMenuItem.Name = "поискToolStripMenuItem";
+            поискToolStripMenuItem.Size = new Size(180, 22);
+            поискToolStripMenuItem.Text = "&Поиск";
             // 
             // toolStripSeparator5
             // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(195, 6);
+            toolStripSeparator5.Name = "toolStripSeparator5";
+            toolStripSeparator5.Size = new Size(177, 6);
             // 
             // опрограммеToolStripMenuItem
             // 
-            this.опрограммеToolStripMenuItem.Name = "опрограммеToolStripMenuItem";
-            this.опрограммеToolStripMenuItem.Size = new System.Drawing.Size(198, 26);
-            this.опрограммеToolStripMenuItem.Text = "&О программе…";
+            опрограммеToolStripMenuItem.Name = "опрограммеToolStripMenuItem";
+            опрограммеToolStripMenuItem.Size = new Size(180, 22);
+            опрограммеToolStripMenuItem.Text = "&О программе…";
+            опрограммеToolStripMenuItem.Click += опрограммеToolStripMenuItem_Click;
             // 
             // toolStrip1
             // 
@@ -582,8 +624,18 @@
             // 
             // toolStripContainer1.TopToolStripPanel
             // 
-            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.menuStrip1);
-            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip1);
+            toolStripContainer1.TopToolStripPanel.Controls.Add(menuStrip1);
+            toolStripContainer1.TopToolStripPanel.Controls.Add(toolStrip1);
+            // 
+            // bgReadFolders
+            // 
+            bgReadFolders.DoWork += bgReadFolders_DoWork;
+            bgReadFolders.RunWorkerCompleted += bgReadFolders_RunWorkerCompleted;
+            // 
+            // bgReadFiles
+            // 
+            bgReadFiles.DoWork += bgReadFiles_DoWork;
+            bgReadFiles.RunWorkerCompleted += bgReadFiles_RunWorkerCompleted;
             // 
             // MainForm
             // 

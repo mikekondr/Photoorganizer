@@ -120,9 +120,14 @@ namespace PhotoOrganizer
             return Regex.Replace(node.FullPath, "((" + treeView1.Nodes[0].Text + ")(\\\\)?)", "");
         }
 
-        private void �����ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void îïðîãðàììåToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Close(); 
+            MessageBox.Show("Ïðîåêò \"ÔîòîÎðãàíàéçåð\"");
+        }
+
+        private void âûõîäToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
         }
 
         /// dataGridView1
