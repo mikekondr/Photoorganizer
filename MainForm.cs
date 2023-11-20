@@ -30,11 +30,17 @@ namespace PhotoOrganizer
                 tv.Nodes[0].Nodes.Clear();
 
             MainModule.readFolders(tv, rootNode, treeview1_getFullPath(rootNode));
+
+            e.Result = (true, rootNode);
         }
 
         private void bgReadFolders_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
-            ExpandTreeNodeRecurse(treeView1.Nodes[0], "");
+            bool result = (((bool, TreeNode))e.Result).Item1;
+            TreeNode node = (((bool, TreeNode))e.Result).Item2;
+
+            if (result)
+                ExpandTreeNodeRecurse(node, "");
         }
 
         /// bgReadFiles
@@ -56,6 +62,9 @@ namespace PhotoOrganizer
                 if (item.type == "jpg")
                 {
                     row.Cells["icon"].Value = imageList1.Images[5];
+                    row.Cells["dateCreated"].Value = ((PhotoFile)item).dateCreated;
+                    row.Cells["dateModified"].Value = ((PhotoFile)item).dateModified;
+                    row.Cells["dateTaken"].Value = ((PhotoFile)item).dateTaken;
                 }
                 else
                 {
@@ -92,6 +101,10 @@ namespace PhotoOrganizer
                 {
                     e.Node.Nodes.Remove(e.Node.Nodes[0]);
                     bgReadFolders.RunWorkerAsync((treeView1, e.Node));
+                }
+                else
+                {
+                    //TODO: update tree, if changed...
                 }
             }
         }

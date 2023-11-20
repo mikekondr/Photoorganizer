@@ -125,7 +125,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA9gcAAAJNU0Z0AUkBTAIBAQYB
-        AAGQAQABkAEAARABAAEQAQAE/wERAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAASADAAEBAQABEAYAARAU
+        AAG4AQABuAEAARABAAEQAQAE/wERAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAASADAAEBAQABEAYAARAU
         AAH/AX8BCAEhARABQgExAUYBMQFGATEBRgExAUYBMQFGATEBRgExAUYBMQFGARABQgEIASEB/wF/AgAB
         lAFSYAAB3gF7ARABQhQAARABQgHeAXtkAAHeAXsBMQFGBAABewFvATEBRgwAATEBRgHeAXtkAAHeAXsB
         MQFGBAABCAEhAgAB3gF7CgABMQFGAd4Be2QAAd4BewExAUYEAAEYAWMBOQFnDAABMQFGAd4BexwAAUoB
@@ -168,6 +168,15 @@
     <value>True</value>
   </metadata>
   <metadata name="type.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dateCreated.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dateModified.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dateTaken.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">

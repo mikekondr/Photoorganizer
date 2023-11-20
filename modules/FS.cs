@@ -1,21 +1,47 @@
-﻿namespace PhotoOrganizer
+﻿using System.Drawing.Imaging;
+using System.Globalization;
+using System.Text;
+
+namespace PhotoOrganizer
 {
     public class FSItem
     {
         public string name;
         public string type;
+        public const int icon = 4;
 
-        public FSItem(string name, string type)
+        public FSItem(FileInfo file, string type)
         {
-            this.name = name;
+            this.name = file.FullName;
             this.type = type;
         }
     }
 
     public class PhotoFile : FSItem
     {
-        public PhotoFile(string name, string type) : base(name, type)
+        public DateTime dateCreated { get; set; }
+        public DateTime dateModified { get; set; }
+        public DateTime dateTaken { get; set; }
+        public new const int icon = 5;
+
+        public PhotoFile(FileInfo file, string type) : base(file, type)
         {
+            this.dateCreated = file.CreationTime;
+            this.dateModified = file.LastWriteTime;
+            Image img = Image.FromStream(new FileStream(file.FullName, FileMode.Open), false);
+            if (img.PropertyIdList.ToList<int>().Contains(0x9003))
+            {
+                PropertyItem dateProperty = img.GetPropertyItem(0x9003);
+                string taken = (new UTF8Encoding()).GetString(dateProperty.Value).Substring(0, 19);
+                if (taken is not null)
+                {
+                    if (DateTime.TryParseExact(taken, "yyyy:MM:dd HH:mm:ss",
+                                               CultureInfo.InvariantCulture,
+                                               DateTimeStyles.None,
+                                               out DateTime dt))
+                        this.dateTaken = dt;
+                }
+            }
         }
     }
 
@@ -55,13 +81,13 @@
             foreach (FileInfo file in _current.GetFiles())
             {
                 string ext = (file.Extension.Length == 0 ? "" : file.Extension.Substring(1)).ToLower();
-                if (file.Extension == "jpg")
+                if (ext == "jpg")
                 {
-                    item = new PhotoFile(file.FullName, ext);
+                    item = new PhotoFile(file, ext);
                 }
                 else
                 {
-                    item = new FSItem(file.Name, ext);
+                    item = new FSItem(file, ext);
                 }
 
                 items.Add(item);

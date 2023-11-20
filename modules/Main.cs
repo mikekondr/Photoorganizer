@@ -25,20 +25,30 @@ namespace PhotoOrganizer
                     if (drive.IsReady)
                     {
                         DirectoryInfo info = new DirectoryInfo(drive.Name);
-                        readSubFolders(info.GetDirectories(), treeView, node);
+                        readSubFolders(info, treeView, node);
                     }
                 }
             }
             else
             {
                 DirectoryInfo info = new DirectoryInfo(path);
-                readSubFolders(info.GetDirectories(), treeView, rootNode);
+                readSubFolders(info, treeView, rootNode);
             }
         }
 
-        private static void readSubFolders(DirectoryInfo[] info, TreeView treeView, TreeNode parentNode)
+        private static void readSubFolders(DirectoryInfo info, TreeView treeView, TreeNode parentNode)
         {
-            foreach (DirectoryInfo folder in info)
+            DirectoryInfo[] dirs;
+            try
+            {
+                dirs = info.GetDirectories();
+            }
+            catch
+            {
+                return;
+            }
+
+            foreach (DirectoryInfo folder in dirs)
             {
                 TreeNode node = new TreeNode();
                 node = (TreeNode)treeView.Invoke(NodeAdd, parentNode, folder.Name, 3);
@@ -46,15 +56,23 @@ namespace PhotoOrganizer
                 if (_currentFolder.FullPath().StartsWith(folder.FullName))
                     try
                     {
-                        readSubFolders(folder.GetDirectories(), treeView, node);
+                        readSubFolders(folder, treeView, node);
                     }
                     catch
                     { }
                 else
-                //dummy element for "plus" sign
                 {
-                    TreeNode dummy = (TreeNode)treeView.Invoke(NodeAdd, node, "", -1);
-                    dummy.Tag = "[dummy]";
+                    try
+                    {
+                        if (folder.GetDirectories().Length != 0)
+                        {
+                            //dummy element for "plus" sign
+                            TreeNode dummy = (TreeNode)treeView.Invoke(NodeAdd, node, "", -1);
+                            dummy.Tag = "[dummy]";
+
+                        }
+                    }
+                    catch { }
                 }
             }
         }

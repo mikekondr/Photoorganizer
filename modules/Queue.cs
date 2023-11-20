@@ -7,7 +7,7 @@
 
     public class Operation : PhotoFile
     {
-        public Operation(string name, string type) : base(name, type)
+        public Operation(FileInfo file, string type) : base(file, type)
         {
         }
     }

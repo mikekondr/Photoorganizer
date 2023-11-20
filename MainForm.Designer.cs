@@ -29,15 +29,12 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            TreeNode treeNode1 = new TreeNode("Мій комп'ютер", 1, 1);
+            TreeNode treeNode2 = new TreeNode("Мій комп'ютер", 1, 1);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             splitContainer1 = new SplitContainer();
             treeView1 = new TreeView();
             imageList1 = new ImageList(components);
             dataGridView1 = new DataGridView();
-            icon = new DataGridViewImageColumn();
-            name = new DataGridViewTextBoxColumn();
-            type = new DataGridViewTextBoxColumn();
             menuStrip1 = new MenuStrip();
             файлToolStripMenuItem = new ToolStripMenuItem();
             создатьToolStripMenuItem = new ToolStripMenuItem();
@@ -82,6 +79,12 @@
             toolStripContainer1 = new ToolStripContainer();
             bgReadFolders = new System.ComponentModel.BackgroundWorker();
             bgReadFiles = new System.ComponentModel.BackgroundWorker();
+            icon = new DataGridViewImageColumn();
+            name = new DataGridViewTextBoxColumn();
+            type = new DataGridViewTextBoxColumn();
+            dateCreated = new DataGridViewTextBoxColumn();
+            dateModified = new DataGridViewTextBoxColumn();
+            dateTaken = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -118,11 +121,11 @@
             treeView1.ImageList = imageList1;
             treeView1.Location = new Point(0, 0);
             treeView1.Name = "treeView1";
-            treeNode1.ImageIndex = 1;
-            treeNode1.Name = "Узел0";
-            treeNode1.SelectedImageIndex = 1;
-            treeNode1.Text = "Мій комп'ютер";
-            treeView1.Nodes.AddRange(new TreeNode[] { treeNode1 });
+            treeNode2.ImageIndex = 1;
+            treeNode2.Name = "Узел0";
+            treeNode2.SelectedImageIndex = 1;
+            treeNode2.Text = "Мій комп'ютер";
+            treeView1.Nodes.AddRange(new TreeNode[] { treeNode2 });
             treeView1.SelectedImageIndex = 0;
             treeView1.Size = new Size(270, 401);
             treeView1.TabIndex = 0;
@@ -148,7 +151,7 @@
             dataGridView1.AllowUserToOrderColumns = true;
             dataGridView1.AllowUserToResizeRows = false;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { icon, name, type });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { icon, name, type, dateCreated, dateModified, dateTaken });
             dataGridView1.Dock = DockStyle.Fill;
             dataGridView1.EditMode = DataGridViewEditMode.EditProgrammatically;
             dataGridView1.Location = new Point(0, 0);
@@ -158,29 +161,6 @@
             dataGridView1.RowTemplate.Height = 25;
             dataGridView1.Size = new Size(526, 401);
             dataGridView1.TabIndex = 0;
-            // 
-            // icon
-            // 
-            icon.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            icon.HeaderText = "";
-            icon.MinimumWidth = 20;
-            icon.Name = "icon";
-            icon.ReadOnly = true;
-            icon.Resizable = DataGridViewTriState.False;
-            icon.Width = 20;
-            // 
-            // name
-            // 
-            name.HeaderText = "Найменування";
-            name.Name = "name";
-            name.ReadOnly = true;
-            name.Width = 250;
-            // 
-            // type
-            // 
-            type.HeaderText = "Тип";
-            type.Name = "type";
-            type.ReadOnly = true;
             // 
             // menuStrip1
             // 
@@ -511,6 +491,47 @@
             bgReadFiles.DoWork += bgReadFiles_DoWork;
             bgReadFiles.RunWorkerCompleted += bgReadFiles_RunWorkerCompleted;
             // 
+            // icon
+            // 
+            icon.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            icon.HeaderText = "";
+            icon.MinimumWidth = 20;
+            icon.Name = "icon";
+            icon.ReadOnly = true;
+            icon.Resizable = DataGridViewTriState.False;
+            icon.Width = 20;
+            // 
+            // name
+            // 
+            name.HeaderText = "Найменування";
+            name.Name = "name";
+            name.ReadOnly = true;
+            name.Width = 250;
+            // 
+            // type
+            // 
+            type.HeaderText = "Тип";
+            type.Name = "type";
+            type.ReadOnly = true;
+            // 
+            // dateCreated
+            // 
+            dateCreated.HeaderText = "Дата створення";
+            dateCreated.Name = "dateCreated";
+            dateCreated.ReadOnly = true;
+            // 
+            // dateModified
+            // 
+            dateModified.HeaderText = "Дата зміни";
+            dateModified.Name = "dateModified";
+            dateModified.ReadOnly = true;
+            // 
+            // dateTaken
+            // 
+            dateTaken.HeaderText = "Дата зйомки";
+            dateTaken.Name = "dateTaken";
+            dateTaken.ReadOnly = true;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -591,5 +612,8 @@
         private DataGridViewImageColumn icon;
         private DataGridViewTextBoxColumn name;
         private DataGridViewTextBoxColumn type;
+        private DataGridViewTextBoxColumn dateCreated;
+        private DataGridViewTextBoxColumn dateModified;
+        private DataGridViewTextBoxColumn dateTaken;
     }
 }
