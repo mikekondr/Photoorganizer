@@ -1,6 +1,4 @@
-using System;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
 
 namespace PhotoOrganizer
 {
@@ -11,11 +9,33 @@ namespace PhotoOrganizer
         {
             InitializeComponent();
             MainModule.Init();
+
+            bindingSourceFiles.DataSource = MainModule.CurrentFolder.items;
+
+            dataGridView1.AutoGenerateColumns = false;
+            dataGridView1.DataSource = bindingSourceFiles;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             bgReadFolders.RunWorkerAsync((treeView1, treeView1.Nodes[0]));
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            while (bgReadFolders.IsBusy)
+            {
+                bgReadFolders.CancelAsync();
+                Thread.Sleep(100);
+                Application.DoEvents();
+            }
+
+            while (bgReadFiles.IsBusy)
+            {
+                bgReadFiles.CancelAsync();
+                Thread.Sleep(100);
+                Application.DoEvents();
+            }
         }
 
         /// bgReadFolders
@@ -29,7 +49,7 @@ namespace PhotoOrganizer
             if (rootNode.Parent == null)
                 tv.Nodes[0].Nodes.Clear();
 
-            MainModule.readFolders(tv, rootNode, treeview1_getFullPath(rootNode));
+            MainModule.readFolders(tv, rootNode, treeview1_getFullPath(rootNode), bgReadFolders);
 
             e.Result = (true, rootNode);
         }
@@ -48,31 +68,7 @@ namespace PhotoOrganizer
 
         private void bgReadFiles_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            MainModule.CurrentFolder.ReadFiles();
-        }
-
-        private void bgReadFiles_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
-        {
-            dataGridView1.Rows.Clear();
-            foreach (var item in MainModule.CurrentFolder.items)
-            {
-                DataGridViewRow row = dataGridView1.Rows[dataGridView1.Rows.Add()];
-                row.Cells["name"].Value = item.name;
-                row.Cells["type"].Value = item.type;
-                if (item.type == "jpg")
-                {
-                    row.Cells["icon"].Value = imageList1.Images[5];
-                    row.Cells["dateCreated"].Value = ((PhotoFile)item).dateCreated;
-                    row.Cells["dateModified"].Value = ((PhotoFile)item).dateModified;
-                    row.Cells["dateTaken"].Value = ((PhotoFile)item).dateTaken;
-                }
-                else
-                {
-                    row.Cells["icon"].Value = imageList1.Images[4];
-                    row.DefaultCellStyle.ForeColor = Color.Gray;
-                }
-
-            }
+            MainModule.CurrentFolder.ReadFiles(this, bgReadFiles);
         }
 
         /// TreeView
@@ -109,6 +105,16 @@ namespace PhotoOrganizer
             }
         }
 
+        private void treeView1_BeforeSelect(object sender, TreeViewCancelEventArgs e)
+        {
+            while (bgReadFiles.IsBusy)
+            {
+                bgReadFiles.CancelAsync();
+                Thread.Sleep(100);
+                Application.DoEvents();
+            }
+        }
+
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
             MainModule.ChangeCurrentFolder(treeview1_getFullPath(e.Node));
@@ -120,8 +126,47 @@ namespace PhotoOrganizer
             return Regex.Replace(node.FullPath, "((" + treeView1.Nodes[0].Text + ")(\\\\)?)", "");
         }
 
+        private void опрограммеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Проект \"ФотоОрганайзер\"");
+        }
+
+        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
         /// dataGridView1
         /// 
 
+        private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex == 0)
+            {
+                if ((int)e.Value == 4)
+                    dataGridView1.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.DarkGray;
+                e.Value = imageList1.Images[(int)e.Value];
+            }
+            else if (e.ColumnIndex >= 3 && e.ColumnIndex <= 5)
+            {
+                if (((DateTime)e.Value) == DateTime.MinValue)
+                    e.CellStyle.Format = "";
+            }
+        }
+
+
+        /// Main menu
+        /// 
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form frm = new AboutForm();
+            frm.ShowDialog(this);
+        }
+
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

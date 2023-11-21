@@ -1,11 +1,13 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace PhotoOrganizer
 {
     public class MainModule
     {
-        static private CurrentFolder? _currentFolder;
+        static private CurrentFolder _currentFolder;
 
         static public void Init()
         {
@@ -13,30 +15,33 @@ namespace PhotoOrganizer
         }
 
         static public void ChangeCurrentFolder(string path) =>
-            _currentFolder = new CurrentFolder(path);
+            _currentFolder.ChangePath(path);
 
-        static public void readFolders(TreeView treeView, TreeNode rootNode, string path)
+        static public void readFolders(TreeView treeView, TreeNode rootNode, string path, BackgroundWorker bg)
         {
             if (path == "")
             {
                 foreach (DriveInfo drive in System.IO.DriveInfo.GetDrives())
                 {
+                    if (bg.CancellationPending)
+                        break;
+
                     TreeNode node = (TreeNode)treeView.Invoke(NodeAdd, rootNode, drive.Name, 2);
                     if (drive.IsReady)
                     {
                         DirectoryInfo info = new DirectoryInfo(drive.Name);
-                        readSubFolders(info, treeView, node);
+                        readSubFolders(info, treeView, node, bg);
                     }
                 }
             }
             else
             {
                 DirectoryInfo info = new DirectoryInfo(path);
-                readSubFolders(info, treeView, rootNode);
+                readSubFolders(info, treeView, rootNode, bg);
             }
         }
 
-        private static void readSubFolders(DirectoryInfo info, TreeView treeView, TreeNode parentNode)
+        private static void readSubFolders(DirectoryInfo info, TreeView treeView, TreeNode parentNode, BackgroundWorker bg)
         {
             DirectoryInfo[] dirs;
             try
@@ -50,13 +55,17 @@ namespace PhotoOrganizer
 
             foreach (DirectoryInfo folder in dirs)
             {
+                if (bg.CancellationPending)
+                    break;
+
                 TreeNode node = new TreeNode();
                 node = (TreeNode)treeView.Invoke(NodeAdd, parentNode, folder.Name, 3);
                 node.Tag = folder.FullName;
+                //if (_currentFolder.FullPath().StartsWith(folder.FullName))
                 if (_currentFolder.FullPath().StartsWith(folder.FullName))
                     try
                     {
-                        readSubFolders(folder, treeView, node);
+                        readSubFolders(folder, treeView, node, bg);
                     }
                     catch
                     { }
