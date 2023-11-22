@@ -29,13 +29,15 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            TreeNode treeNode2 = new TreeNode("Мій комп'ютер", 1, 1);
+            TreeNode treeNode1 = new TreeNode("Мій комп'ютер", 1, 1);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             splitContainer1 = new SplitContainer();
             treeView1 = new TreeView();
+            contextMenuStripFolders = new ContextMenuStrip(components);
+            UpdateToolStripMenuItem = new ToolStripMenuItem();
             imageList1 = new ImageList(components);
             dataGridView1 = new DataGridView();
             icon = new DataGridViewImageColumn();
@@ -44,6 +46,8 @@
             dateCreated = new DataGridViewTextBoxColumn();
             dateModified = new DataGridViewTextBoxColumn();
             dateTaken = new DataGridViewTextBoxColumn();
+            contextMenuStripFiles = new ContextMenuStrip(components);
+            RenameToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1 = new MenuStrip();
             файлToolStripMenuItem = new ToolStripMenuItem();
             создатьToolStripMenuItem = new ToolStripMenuItem();
@@ -65,9 +69,8 @@
             вставитьToolStripMenuItem = new ToolStripMenuItem();
             toolStripSeparator4 = new ToolStripSeparator();
             выбратьвсеToolStripMenuItem = new ToolStripMenuItem();
-            инструментыToolStripMenuItem = new ToolStripMenuItem();
-            настройкиToolStripMenuItem = new ToolStripMenuItem();
-            параметрыToolStripMenuItem = new ToolStripMenuItem();
+            ToolsToolStripMenuItem = new ToolStripMenuItem();
+            SettingsToolStripMenuItem = new ToolStripMenuItem();
             справкаToolStripMenuItem = new ToolStripMenuItem();
             содержимоеToolStripMenuItem = new ToolStripMenuItem();
             индексToolStripMenuItem = new ToolStripMenuItem();
@@ -93,7 +96,9 @@
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
+            contextMenuStripFolders.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            contextMenuStripFiles.SuspendLayout();
             menuStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
             toolStripContainer1.ContentPanel.SuspendLayout();
@@ -121,22 +126,35 @@
             // 
             // treeView1
             // 
+            treeView1.ContextMenuStrip = contextMenuStripFolders;
             treeView1.Dock = DockStyle.Fill;
             treeView1.ImageIndex = 0;
             treeView1.ImageList = imageList1;
             treeView1.Location = new Point(0, 0);
             treeView1.Name = "treeView1";
-            treeNode2.ImageIndex = 1;
-            treeNode2.Name = "Узел0";
-            treeNode2.SelectedImageIndex = 1;
-            treeNode2.Text = "Мій комп'ютер";
-            treeView1.Nodes.AddRange(new TreeNode[] { treeNode2 });
+            treeNode1.ImageIndex = 1;
+            treeNode1.Name = "Узел0";
+            treeNode1.SelectedImageIndex = 1;
+            treeNode1.Text = "Мій комп'ютер";
+            treeView1.Nodes.AddRange(new TreeNode[] { treeNode1 });
             treeView1.SelectedImageIndex = 0;
             treeView1.Size = new Size(270, 401);
             treeView1.TabIndex = 0;
             treeView1.BeforeExpand += treeView1_BeforeExpand;
             treeView1.BeforeSelect += treeView1_BeforeSelect;
             treeView1.AfterSelect += treeView1_AfterSelect;
+            // 
+            // contextMenuStripFolders
+            // 
+            contextMenuStripFolders.Items.AddRange(new ToolStripItem[] { UpdateToolStripMenuItem });
+            contextMenuStripFolders.Name = "contextMenuStripFolders";
+            contextMenuStripFolders.Size = new Size(123, 26);
+            // 
+            // UpdateToolStripMenuItem
+            // 
+            UpdateToolStripMenuItem.Name = "UpdateToolStripMenuItem";
+            UpdateToolStripMenuItem.Size = new Size(122, 22);
+            UpdateToolStripMenuItem.Text = "Оновити";
             // 
             // imageList1
             // 
@@ -158,6 +176,7 @@
             dataGridView1.AllowUserToResizeRows = false;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { icon, name, type, dateCreated, dateModified, dateTaken });
+            dataGridView1.ContextMenuStrip = contextMenuStripFiles;
             dataGridView1.Dock = DockStyle.Fill;
             dataGridView1.EditMode = DataGridViewEditMode.EditProgrammatically;
             dataGridView1.Location = new Point(0, 0);
@@ -198,9 +217,9 @@
             // dateCreated
             // 
             dateCreated.DataPropertyName = "DateCreated";
-            dataGridViewCellStyle4.Format = "G";
-            dataGridViewCellStyle4.NullValue = "\"\"";
-            dateCreated.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Format = "G";
+            dataGridViewCellStyle1.NullValue = "\"\"";
+            dateCreated.DefaultCellStyle = dataGridViewCellStyle1;
             dateCreated.HeaderText = "Дата створення";
             dateCreated.Name = "dateCreated";
             dateCreated.ReadOnly = true;
@@ -208,9 +227,9 @@
             // dateModified
             // 
             dateModified.DataPropertyName = "DateModified";
-            dataGridViewCellStyle5.Format = "G";
-            dataGridViewCellStyle5.NullValue = "\"\"";
-            dateModified.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Format = "G";
+            dataGridViewCellStyle2.NullValue = "\"\"";
+            dateModified.DefaultCellStyle = dataGridViewCellStyle2;
             dateModified.HeaderText = "Дата зміни";
             dateModified.Name = "dateModified";
             dateModified.ReadOnly = true;
@@ -218,18 +237,30 @@
             // dateTaken
             // 
             dateTaken.DataPropertyName = "DateTaken";
-            dataGridViewCellStyle6.Format = "G";
-            dataGridViewCellStyle6.NullValue = "\"\"";
-            dateTaken.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Format = "G";
+            dataGridViewCellStyle3.NullValue = "\"\"";
+            dateTaken.DefaultCellStyle = dataGridViewCellStyle3;
             dateTaken.HeaderText = "Дата зйомки";
             dateTaken.Name = "dateTaken";
             dateTaken.ReadOnly = true;
+            // 
+            // contextMenuStripFiles
+            // 
+            contextMenuStripFiles.Items.AddRange(new ToolStripItem[] { RenameToolStripMenuItem });
+            contextMenuStripFiles.Name = "contextMenuStripFiles";
+            contextMenuStripFiles.Size = new Size(162, 26);
+            // 
+            // RenameToolStripMenuItem
+            // 
+            RenameToolStripMenuItem.Name = "RenameToolStripMenuItem";
+            RenameToolStripMenuItem.Size = new Size(161, 22);
+            RenameToolStripMenuItem.Text = "Перейменувати";
             // 
             // menuStrip1
             // 
             menuStrip1.Dock = DockStyle.None;
             menuStrip1.GripStyle = ToolStripGripStyle.Visible;
-            menuStrip1.Items.AddRange(new ToolStripItem[] { файлToolStripMenuItem, изменитьToolStripMenuItem, инструментыToolStripMenuItem, справкаToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { файлToolStripMenuItem, изменитьToolStripMenuItem, ToolsToolStripMenuItem, справкаToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(800, 24);
@@ -379,24 +410,19 @@
             выбратьвсеToolStripMenuItem.Size = new Size(181, 22);
             выбратьвсеToolStripMenuItem.Text = "Выбрать &все";
             // 
-            // инструментыToolStripMenuItem
+            // ToolsToolStripMenuItem
             // 
-            инструментыToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { настройкиToolStripMenuItem, параметрыToolStripMenuItem });
-            инструментыToolStripMenuItem.Name = "инструментыToolStripMenuItem";
-            инструментыToolStripMenuItem.Size = new Size(95, 20);
-            инструментыToolStripMenuItem.Text = "&Инструменты";
+            ToolsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { SettingsToolStripMenuItem });
+            ToolsToolStripMenuItem.Name = "ToolsToolStripMenuItem";
+            ToolsToolStripMenuItem.Size = new Size(87, 20);
+            ToolsToolStripMenuItem.Text = "&Інструменти";
             // 
-            // настройкиToolStripMenuItem
+            // SettingsToolStripMenuItem
             // 
-            настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
-            настройкиToolStripMenuItem.Size = new Size(138, 22);
-            настройкиToolStripMenuItem.Text = "&Настройки";
-            // 
-            // параметрыToolStripMenuItem
-            // 
-            параметрыToolStripMenuItem.Name = "параметрыToolStripMenuItem";
-            параметрыToolStripMenuItem.Size = new Size(138, 22);
-            параметрыToolStripMenuItem.Text = "&Параметры";
+            SettingsToolStripMenuItem.Name = "SettingsToolStripMenuItem";
+            SettingsToolStripMenuItem.Size = new Size(180, 22);
+            SettingsToolStripMenuItem.Text = "&Налаштування";
+            SettingsToolStripMenuItem.Click += SettingsToolStripMenuItem_Click;
             // 
             // справкаToolStripMenuItem
             // 
@@ -576,7 +602,9 @@
             splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
+            contextMenuStripFolders.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            contextMenuStripFiles.ResumeLayout(false);
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             toolStrip1.ResumeLayout(false);
@@ -615,9 +643,8 @@
         private ToolStripMenuItem вставитьToolStripMenuItem;
         private ToolStripSeparator toolStripSeparator4;
         private ToolStripMenuItem выбратьвсеToolStripMenuItem;
-        private ToolStripMenuItem инструментыToolStripMenuItem;
-        private ToolStripMenuItem настройкиToolStripMenuItem;
-        private ToolStripMenuItem параметрыToolStripMenuItem;
+        private ToolStripMenuItem ToolsToolStripMenuItem;
+        private ToolStripMenuItem SettingsToolStripMenuItem;
         private ToolStripMenuItem справкаToolStripMenuItem;
         private ToolStripMenuItem содержимоеToolStripMenuItem;
         private ToolStripMenuItem индексToolStripMenuItem;
@@ -647,5 +674,9 @@
         private DataGridViewTextBoxColumn dateModified;
         private DataGridViewTextBoxColumn dateTaken;
         private System.ComponentModel.BackgroundWorker bgReadFiles;
+        private ContextMenuStrip contextMenuStripFolders;
+        private ToolStripMenuItem UpdateToolStripMenuItem;
+        private ContextMenuStrip contextMenuStripFiles;
+        private ToolStripMenuItem RenameToolStripMenuItem;
     }
 }

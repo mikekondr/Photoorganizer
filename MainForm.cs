@@ -150,13 +150,17 @@ namespace PhotoOrganizer
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form frm = new AboutForm();
-            frm.ShowDialog(this);
+            new AboutForm().ShowDialog(this);
         }
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void SettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new SettingsForm().ShowDialog(this);
         }
     }
 }

@@ -1,7 +1,6 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
+﻿using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Configuration;
 
 namespace PhotoOrganizer
 {
@@ -9,9 +8,28 @@ namespace PhotoOrganizer
     {
         static private CurrentFolder _currentFolder;
 
+        static private NameValueCollection _settings;
+        static public dynamic get_setting(string key)
+        {
+            dynamic result = null;
+            if (_settings != null)
+            {
+                result = _settings[key];
+            }
+            return result;
+        }
+        static public void set_setting(string key, dynamic value)
+        {
+            _settings[key] = value;
+        }
+
         static public void Init()
         {
             _currentFolder = new CurrentFolder();
+
+            /// Settings
+
+            _settings = ConfigurationManager.AppSettings;
         }
 
         static public void ChangeCurrentFolder(string path) =>

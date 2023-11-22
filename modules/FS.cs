@@ -184,6 +184,8 @@ namespace PhotoOrganizer
                 try
                 {
                     _current = new DirectoryInfo(path);
+                    if (_current.Exists == false)
+                        _current = null;
                 }
                 catch { }
         }
