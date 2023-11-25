@@ -6,7 +6,7 @@ using System.Text;
 
 namespace PhotoOrganizer
 {
-    public class FSItem: INotifyPropertyChanged
+    public class FSItem : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -22,7 +22,18 @@ namespace PhotoOrganizer
             this.type = type;
         }
 
+        public FSItem(string filepath)
+        {
+            FileInfo file = new FileInfo(filepath);
+            string ext = (file.Extension.Length == 0 ? "" : file.Extension.Substring(1)).ToLower();
+
+            this.fullName = file.FullName;
+            this.name = file.Name;
+            this.type = ext;
+        }
+
         protected string fullName = "";
+        public string FullName { get { return fullName; } }
 
         protected string name = "";
         public virtual string Name
@@ -209,6 +220,8 @@ namespace PhotoOrganizer
                 }
                 else
                 {
+                    if (MainModule.get_setting("ShowUnsupportedFiles") == false)
+                        continue;
                     item = new UnknownFile(file, ext);
                 }
                 

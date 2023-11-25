@@ -39,6 +39,7 @@
             contextMenuStripFolders = new ContextMenuStrip(components);
             UpdateToolStripMenuItem = new ToolStripMenuItem();
             imageList1 = new ImageList(components);
+            splitContainer2 = new SplitContainer();
             dataGridView1 = new DataGridView();
             icon = new DataGridViewImageColumn();
             name = new DataGridViewTextBoxColumn();
@@ -48,6 +49,9 @@
             dateTaken = new DataGridViewTextBoxColumn();
             contextMenuStripFiles = new ContextMenuStrip(components);
             RenameToolStripMenuItem = new ToolStripMenuItem();
+            splitContainer3 = new SplitContainer();
+            propertyGrid1 = new PropertyGrid();
+            pictureBox1 = new PictureBox();
             menuStrip1 = new MenuStrip();
             файлToolStripMenuItem = new ToolStripMenuItem();
             создатьToolStripMenuItem = new ToolStripMenuItem();
@@ -89,6 +93,10 @@
             toolStripSeparator7 = new ToolStripSeparator();
             справкаToolStripButton = new ToolStripButton();
             toolStripContainer1 = new ToolStripContainer();
+            menuStrip2 = new MenuStrip();
+            sidePanelToolStripMenuItem = new ToolStripMenuItem();
+            infoPanelToolStripMenuItem = new ToolStripMenuItem();
+            previewPanelToolStripMenuItem = new ToolStripMenuItem();
             bgReadFolders = new System.ComponentModel.BackgroundWorker();
             bgReadFiles = new System.ComponentModel.BackgroundWorker();
             bindingSourceFiles = new BindingSource(components);
@@ -97,13 +105,24 @@
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
             contextMenuStripFolders.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainer2).BeginInit();
+            splitContainer2.Panel1.SuspendLayout();
+            splitContainer2.Panel2.SuspendLayout();
+            splitContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             contextMenuStripFiles.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainer3).BeginInit();
+            splitContainer3.Panel1.SuspendLayout();
+            splitContainer3.Panel2.SuspendLayout();
+            splitContainer3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             menuStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
+            toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             toolStripContainer1.ContentPanel.SuspendLayout();
             toolStripContainer1.TopToolStripPanel.SuspendLayout();
             toolStripContainer1.SuspendLayout();
+            menuStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)bindingSourceFiles).BeginInit();
             SuspendLayout();
             // 
@@ -119,9 +138,9 @@
             // 
             // splitContainer1.Panel2
             // 
-            splitContainer1.Panel2.Controls.Add(dataGridView1);
-            splitContainer1.Size = new Size(800, 401);
-            splitContainer1.SplitterDistance = 270;
+            splitContainer1.Panel2.Controls.Add(splitContainer2);
+            splitContainer1.Size = new Size(800, 377);
+            splitContainer1.SplitterDistance = 154;
             splitContainer1.TabIndex = 0;
             // 
             // treeView1
@@ -138,7 +157,7 @@
             treeNode1.Text = "Мій комп'ютер";
             treeView1.Nodes.AddRange(new TreeNode[] { treeNode1 });
             treeView1.SelectedImageIndex = 0;
-            treeView1.Size = new Size(270, 401);
+            treeView1.Size = new Size(154, 377);
             treeView1.TabIndex = 0;
             treeView1.BeforeExpand += treeView1_BeforeExpand;
             treeView1.BeforeSelect += treeView1_BeforeSelect;
@@ -168,6 +187,23 @@
             imageList1.Images.SetKeyName(4, "unknown-document.png");
             imageList1.Images.SetKeyName(5, "image.png");
             // 
+            // splitContainer2
+            // 
+            splitContainer2.Dock = DockStyle.Fill;
+            splitContainer2.Location = new Point(0, 0);
+            splitContainer2.Name = "splitContainer2";
+            // 
+            // splitContainer2.Panel1
+            // 
+            splitContainer2.Panel1.Controls.Add(dataGridView1);
+            // 
+            // splitContainer2.Panel2
+            // 
+            splitContainer2.Panel2.Controls.Add(splitContainer3);
+            splitContainer2.Size = new Size(642, 377);
+            splitContainer2.SplitterDistance = 490;
+            splitContainer2.TabIndex = 3;
+            // 
             // dataGridView1
             // 
             dataGridView1.AllowUserToAddRows = false;
@@ -184,9 +220,10 @@
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowTemplate.Height = 25;
-            dataGridView1.Size = new Size(526, 401);
+            dataGridView1.Size = new Size(490, 377);
             dataGridView1.TabIndex = 0;
             dataGridView1.CellFormatting += dataGridView1_CellFormatting;
+            dataGridView1.SelectionChanged += dataGridView1_SelectionChanged;
             // 
             // icon
             // 
@@ -255,6 +292,44 @@
             RenameToolStripMenuItem.Name = "RenameToolStripMenuItem";
             RenameToolStripMenuItem.Size = new Size(161, 22);
             RenameToolStripMenuItem.Text = "Перейменувати";
+            RenameToolStripMenuItem.Click += RenameToolStripMenuItem_Click;
+            // 
+            // splitContainer3
+            // 
+            splitContainer3.Dock = DockStyle.Fill;
+            splitContainer3.Location = new Point(0, 0);
+            splitContainer3.Name = "splitContainer3";
+            splitContainer3.Orientation = Orientation.Horizontal;
+            // 
+            // splitContainer3.Panel1
+            // 
+            splitContainer3.Panel1.Controls.Add(propertyGrid1);
+            // 
+            // splitContainer3.Panel2
+            // 
+            splitContainer3.Panel2.Controls.Add(pictureBox1);
+            splitContainer3.Size = new Size(148, 377);
+            splitContainer3.SplitterDistance = 188;
+            splitContainer3.TabIndex = 3;
+            // 
+            // propertyGrid1
+            // 
+            propertyGrid1.Dock = DockStyle.Fill;
+            propertyGrid1.Location = new Point(0, 0);
+            propertyGrid1.Name = "propertyGrid1";
+            propertyGrid1.Size = new Size(148, 188);
+            propertyGrid1.TabIndex = 2;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.BorderStyle = BorderStyle.FixedSingle;
+            pictureBox1.Dock = DockStyle.Fill;
+            pictureBox1.Location = new Point(0, 0);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(148, 185);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 0;
+            pictureBox1.TabStop = false;
             // 
             // menuStrip1
             // 
@@ -420,7 +495,7 @@
             // SettingsToolStripMenuItem
             // 
             SettingsToolStripMenuItem.Name = "SettingsToolStripMenuItem";
-            SettingsToolStripMenuItem.Size = new Size(180, 22);
+            SettingsToolStripMenuItem.Size = new Size(156, 22);
             SettingsToolStripMenuItem.Text = "&Налаштування";
             SettingsToolStripMenuItem.Click += SettingsToolStripMenuItem_Click;
             // 
@@ -556,10 +631,14 @@
             // toolStripContainer1
             // 
             // 
+            // toolStripContainer1.BottomToolStripPanel
+            // 
+            toolStripContainer1.BottomToolStripPanel.Controls.Add(menuStrip2);
+            // 
             // toolStripContainer1.ContentPanel
             // 
             toolStripContainer1.ContentPanel.Controls.Add(splitContainer1);
-            toolStripContainer1.ContentPanel.Size = new Size(800, 401);
+            toolStripContainer1.ContentPanel.Size = new Size(800, 377);
             toolStripContainer1.Dock = DockStyle.Fill;
             toolStripContainer1.Location = new Point(0, 0);
             toolStripContainer1.Name = "toolStripContainer1";
@@ -571,6 +650,53 @@
             // 
             toolStripContainer1.TopToolStripPanel.Controls.Add(menuStrip1);
             toolStripContainer1.TopToolStripPanel.Controls.Add(toolStrip1);
+            // 
+            // menuStrip2
+            // 
+            menuStrip2.Dock = DockStyle.None;
+            menuStrip2.Items.AddRange(new ToolStripItem[] { sidePanelToolStripMenuItem, infoPanelToolStripMenuItem, previewPanelToolStripMenuItem });
+            menuStrip2.Location = new Point(0, 0);
+            menuStrip2.Name = "menuStrip2";
+            menuStrip2.RightToLeft = RightToLeft.Yes;
+            menuStrip2.Size = new Size(800, 24);
+            menuStrip2.TabIndex = 0;
+            menuStrip2.Text = "menuStrip2";
+            // 
+            // sidePanelToolStripMenuItem
+            // 
+            sidePanelToolStripMenuItem.Checked = true;
+            sidePanelToolStripMenuItem.CheckOnClick = true;
+            sidePanelToolStripMenuItem.CheckState = CheckState.Checked;
+            sidePanelToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            sidePanelToolStripMenuItem.Image = (Image)resources.GetObject("sidePanelToolStripMenuItem.Image");
+            sidePanelToolStripMenuItem.Name = "sidePanelToolStripMenuItem";
+            sidePanelToolStripMenuItem.Size = new Size(28, 20);
+            sidePanelToolStripMenuItem.Text = "Показати бічну панель";
+            sidePanelToolStripMenuItem.CheckedChanged += sidePanelToolStripMenuItem_CheckedChanged;
+            // 
+            // infoPanelToolStripMenuItem
+            // 
+            infoPanelToolStripMenuItem.Checked = true;
+            infoPanelToolStripMenuItem.CheckOnClick = true;
+            infoPanelToolStripMenuItem.CheckState = CheckState.Checked;
+            infoPanelToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            infoPanelToolStripMenuItem.Image = (Image)resources.GetObject("infoPanelToolStripMenuItem.Image");
+            infoPanelToolStripMenuItem.Name = "infoPanelToolStripMenuItem";
+            infoPanelToolStripMenuItem.Size = new Size(28, 20);
+            infoPanelToolStripMenuItem.Text = "Інформація";
+            infoPanelToolStripMenuItem.CheckedChanged += infoPanelToolStripMenuItem_CheckedChanged;
+            // 
+            // previewPanelToolStripMenuItem
+            // 
+            previewPanelToolStripMenuItem.Checked = true;
+            previewPanelToolStripMenuItem.CheckOnClick = true;
+            previewPanelToolStripMenuItem.CheckState = CheckState.Checked;
+            previewPanelToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            previewPanelToolStripMenuItem.Image = (Image)resources.GetObject("previewPanelToolStripMenuItem.Image");
+            previewPanelToolStripMenuItem.Name = "previewPanelToolStripMenuItem";
+            previewPanelToolStripMenuItem.Size = new Size(28, 20);
+            previewPanelToolStripMenuItem.Text = "Перегляд фото";
+            previewPanelToolStripMenuItem.CheckedChanged += previewPanelToolStripMenuItem_CheckedChanged;
             // 
             // bgReadFolders
             // 
@@ -593,6 +719,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(toolStripContainer1);
+            DoubleBuffered = true;
             MainMenuStrip = menuStrip1;
             Name = "MainForm";
             Text = "ФотоОрганайзер";
@@ -603,17 +730,30 @@
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
             contextMenuStripFolders.ResumeLayout(false);
+            splitContainer2.Panel1.ResumeLayout(false);
+            splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)splitContainer2).EndInit();
+            splitContainer2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             contextMenuStripFiles.ResumeLayout(false);
+            splitContainer3.Panel1.ResumeLayout(false);
+            splitContainer3.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)splitContainer3).EndInit();
+            splitContainer3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             toolStrip1.ResumeLayout(false);
             toolStrip1.PerformLayout();
+            toolStripContainer1.BottomToolStripPanel.ResumeLayout(false);
+            toolStripContainer1.BottomToolStripPanel.PerformLayout();
             toolStripContainer1.ContentPanel.ResumeLayout(false);
             toolStripContainer1.TopToolStripPanel.ResumeLayout(false);
             toolStripContainer1.TopToolStripPanel.PerformLayout();
             toolStripContainer1.ResumeLayout(false);
             toolStripContainer1.PerformLayout();
+            menuStrip2.ResumeLayout(false);
+            menuStrip2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)bindingSourceFiles).EndInit();
             ResumeLayout(false);
         }
@@ -678,5 +818,13 @@
         private ToolStripMenuItem UpdateToolStripMenuItem;
         private ContextMenuStrip contextMenuStripFiles;
         private ToolStripMenuItem RenameToolStripMenuItem;
+        private PictureBox pictureBox1;
+        private PropertyGrid propertyGrid1;
+        private MenuStrip menuStrip2;
+        private ToolStripMenuItem sidePanelToolStripMenuItem;
+        private ToolStripMenuItem previewPanelToolStripMenuItem;
+        private ToolStripMenuItem infoPanelToolStripMenuItem;
+        private SplitContainer splitContainer2;
+        private SplitContainer splitContainer3;
     }
 }

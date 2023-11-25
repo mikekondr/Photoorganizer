@@ -14,6 +14,7 @@ namespace PhotoOrganizer
 
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.DataSource = bindingSourceFiles;
+            dataGridView1.DataBindings.Add("Tag", bindingSourceFiles, "FullName");
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -143,6 +144,30 @@ namespace PhotoOrganizer
                     e.CellStyle.Format = "";
             }
         }
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedCells.Count == 0)
+                pictureBox1.Image = null;
+            else
+            {
+                int row = dataGridView1.SelectedCells[0].RowIndex;
+                object o = dataGridView1.Rows[row].DataBoundItem;
+                if (o is PhotoFile)
+                {
+                    try
+                    {
+                        //pictureBox1.Image = new Bitmap((o as PhotoFile).FullName);
+                        pictureBox1.Image = Image.FromFile((o as PhotoFile).FullName);
+                    }
+                    catch
+                    {
+                        pictureBox1.ImageLocation = (o as PhotoFile).FullName;
+                    }
+
+                    propertyGrid1.SelectedObject = o;
+                }
+            }
+        }
 
 
         /// Main menu
@@ -161,6 +186,47 @@ namespace PhotoOrganizer
         private void SettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new SettingsForm().ShowDialog(this);
+        }
+
+        /// Context menus
+        ///
+
+        private void RenameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedCells.Count == 0)
+                return;
+
+            List<PhotoFile> selected = new List<PhotoFile>();
+            foreach (DataGridViewCell cell in dataGridView1.SelectedCells)
+            {
+                object t = dataGridView1.Rows[cell.RowIndex].DataBoundItem;
+                if (t is PhotoFile)
+                    selected.Add(t as PhotoFile);
+            }
+
+            if (selected.Count > 0)
+            {
+                Form frm = new RenameForm(selected);
+                frm.ShowDialog(this);
+            }
+        }
+
+        /// Side panel
+        ///
+
+        private void sidePanelToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            splitContainer2.Panel2Collapsed = !sidePanelToolStripMenuItem.Checked;
+        }
+
+        private void infoPanelToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            splitContainer3.Panel1Collapsed = !infoPanelToolStripMenuItem.Checked;
+        }
+
+        private void previewPanelToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            splitContainer3.Panel2Collapsed = !previewPanelToolStripMenuItem.Checked;
         }
     }
 }

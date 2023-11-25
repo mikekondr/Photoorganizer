@@ -6,30 +6,54 @@ namespace PhotoOrganizer
 {
     public class MainModule
     {
-        static private CurrentFolder _currentFolder;
+        static private CurrentFolder _currentFolder = new CurrentFolder();
 
-        static private NameValueCollection _settings;
+        static private Configuration _config_file = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+        static private KeyValueConfigurationCollection _settings = _config_file.AppSettings.Settings;
+
         static public dynamic get_setting(string key)
         {
-            dynamic result = null;
+            dynamic? result = null;
             if (_settings != null)
             {
                 result = _settings[key];
+                
+                switch (key)
+                {
+                    case "ShowUnsupportedFiles":
+                        if (bool.TryParse(result.Value, out bool tmp))
+                            result = tmp;
+                        else
+                            result = false;
+                        break;
+                    case "FilenameMasks":
+                        if (result == null)
+                            result = "photo_{ddMMyyyy_HHmmss}";
+                        break;
+                }
             }
             return result;
         }
+
         static public void set_setting(string key, dynamic value)
         {
-            _settings[key] = value;
+            string? val = null;
+            if (value != null)
+                val = value.ToString();
+
+            if (_settings[key] == null)
+                _settings.Add(key, val);
+            else
+                _settings[key].Value = val;
+        }
+
+        static public void SaveSettings()
+        {
+            _config_file.Save(ConfigurationSaveMode.Full, true);
         }
 
         static public void Init()
         {
-            _currentFolder = new CurrentFolder();
-
-            /// Settings
-
-            _settings = ConfigurationManager.AppSettings;
         }
 
         static public void ChangeCurrentFolder(string path) =>
