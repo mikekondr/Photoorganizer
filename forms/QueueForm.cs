@@ -13,11 +13,21 @@ namespace PhotoOrganizer
 
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.DataSource = bindingSource;
+
+            MainModule.Queue.QueueCountChanged += OnQueueCountChange;
         }
 
         private void dataGridView1_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
         {
             MainModule.Queue.OnQueueCountChanged();
+        }
+
+        public void OnQueueCountChange(int count)
+        {
+            if (count > 0)
+                TotalLabel.Text = "У черзі: " + count.ToString() + " операцій";
+            else
+                TotalLabel.Text = "Черга порожня...";
         }
 
         private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -41,6 +51,30 @@ namespace PhotoOrganizer
                         e.CellStyle.ForeColor = Color.Green;
                     break;
             }
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            int count = dataGridView1.SelectedCells.Count;
+            if (count == 0)
+                return;
+
+            List<Operation> operations = new List<Operation>();
+            for (int i = 0; i < count; i++)
+                operations.Add( (Operation)dataGridView1.Rows[dataGridView1.SelectedCells[i].RowIndex].DataBoundItem );
+
+            foreach (Operation operation in operations)
+                MainModule.Queue.Remove(operation);
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            MainModule.Queue.Clear();
+        }
+
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Не реалізовано, поки що...");
         }
     }
 }
