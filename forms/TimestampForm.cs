@@ -15,8 +15,9 @@
             comboDateTime.Items.AddRange(new string[] {
                 "Дата створення файлу",
                 "Дата зміни файлу",
-                "Дата зйомки" });
-            comboDateTime.SelectedIndex = 2;
+                "Дата зйомки",
+                "З імені файлу (авто)"});
+            comboDateTime.SelectedIndex = 3;
 
             dtStart.Value = DateTime.Now;
 
@@ -59,6 +60,9 @@
                         break;
                     case 2:
                         result = _current.DateTaken;
+                        break;
+                    case 3:
+                        result = _current.auto_datetime();
                         break;
                 }
             }

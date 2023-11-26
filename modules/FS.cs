@@ -3,6 +3,7 @@ using System.Drawing.Imaging;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace PhotoOrganizer
 {
@@ -31,6 +32,9 @@ namespace PhotoOrganizer
             this.name = file.Name;
             this.type = ext;
         }
+
+        public FSItem()
+        { }
 
         protected string fullName = "";
         public string FullName { get { return fullName; } }
@@ -87,8 +91,9 @@ namespace PhotoOrganizer
 
     public class UnknownFile: FSItem
     {
-        public UnknownFile(FileInfo file, string type) : base(file, type)
-        { }
+        public UnknownFile(FileInfo file, string type) : base(file, type) { }
+
+        public UnknownFile(string path) : base(path) { }
 
         public override int icon { get => 4; }
     }
@@ -128,9 +133,10 @@ namespace PhotoOrganizer
             }
         }
 
-        public PhotoFile(FileInfo file, string type) : base(file, type)
-        { }
+        public PhotoFile(FileInfo file, string type) : base(file, type) { }
 
+        public PhotoFile(string path) : base(path) { }
+        
         public void ReadAttributes(Form frm)
         {
             FileInfo file = new FileInfo(this.fullName);
@@ -163,6 +169,77 @@ namespace PhotoOrganizer
             catch { }
 
             NotifyPropertyChanged();
+        }
+
+        public DateTime auto_datetime(bool force_filename = false)
+        {
+            DateTime result = DateTime.MinValue;
+
+            /// from filename
+            string datetime;
+            Match res;
+            //08/18/2018 07:22:16
+
+            res = Regex.Match(name, "(?:[\\D]+|^)(\\d{8})(?:[\\D])", RegexOptions.IgnoreCase);
+            if (res.Success)
+                datetime = res.Groups[1].Value;
+            else
+                datetime = DateTime.MinValue.ToString("ddMMyyyy");
+
+            res = Regex.Match(name, "(?:[\\D]+)(\\d{6}|\\d{9})(?:[\\D]+|$)", RegexOptions.IgnoreCase);
+            if (res.Success)
+                datetime = datetime + " " + res.Groups[1].Value;
+            else
+                datetime = datetime + " " + DateTime.MinValue.ToString("mmHHss");
+
+            if (datetime == DateTime.MinValue.ToString("ddMMyyyy mmHHss"))
+            {
+                res = Regex.Match(name, "(?:[\\D]+|^)(\\d{17}|\\d{14})(?:[\\D]+|$)", RegexOptions.IgnoreCase);
+                if (res.Success)
+                    datetime = res.Groups[1].Value;
+            }
+
+            string[] vars =
+            {
+                "ddMMyyyy HHmmss",
+                "MMddyyyy HHmmss",
+                "ddMMyyyy HHmmssfff",
+                "MMddyyyy HHmmssfff",
+                "yyyyMMdd HHmmss",
+                "yyyyMMdd HHmmssfff"
+            };
+
+            foreach (string format in vars)
+            {
+                if (DateTime.TryParseExact(datetime, format,
+                        CultureInfo.InvariantCulture, DateTimeStyles.None, out result))
+                {
+                    if (result != DateTime.MinValue)
+                        break;
+                }
+                else
+                    result = DateTime.MinValue;
+            }
+
+            if (!force_filename)
+            {
+                if (result == DateTime.MinValue
+                    && dateTaken != DateTime.MinValue)
+
+                    result = dateTaken;
+
+                if (result == DateTime.MinValue
+                    && dateCreated != DateTime.MinValue)
+
+                    result = dateCreated;
+
+                if (result == DateTime.MinValue
+                    && dateModified != DateTime.MinValue)
+
+                    result = dateModified;
+            }
+
+            return result;
         }
     }
 

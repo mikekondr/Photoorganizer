@@ -11,6 +11,8 @@ namespace PhotoOrganizer
         static private Configuration _config_file;
         static private KeyValueConfigurationCollection _settings;
 
+        static private Queue _queue;
+
         static public dynamic get_setting(string key)
         {
             dynamic? result = null;
@@ -60,6 +62,8 @@ namespace PhotoOrganizer
 
             _config_file = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             _settings = _config_file.AppSettings.Settings;
+
+            _queue = new Queue();
         }
 
         static public void ChangeCurrentFolder(string path) =>
@@ -145,12 +149,7 @@ namespace PhotoOrganizer
         /// Properties
         /// 
 
-        public static CurrentFolder CurrentFolder
-        {
-            get
-            {
-                return _currentFolder;
-            }
-        }
+        public static CurrentFolder CurrentFolder { get => _currentFolder; }
+        public static Queue Queue { get => _queue; }
     }
 }

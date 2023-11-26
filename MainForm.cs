@@ -248,5 +248,11 @@ namespace PhotoOrganizer
         {
             splitContainer3.Panel2Collapsed = !previewPanelToolStripMenuItem.Checked;
         }
+
+        private void queueToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form frm = new QueueForm();
+            frm.Show(this);
+        }
     }
 }

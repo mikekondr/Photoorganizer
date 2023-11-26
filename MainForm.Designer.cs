@@ -78,6 +78,7 @@
             bgReadFolders = new System.ComponentModel.BackgroundWorker();
             bgReadFiles = new System.ComponentModel.BackgroundWorker();
             bindingSourceFiles = new BindingSource(components);
+            queueToolStripMenuItem = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -337,7 +338,7 @@
             // ExitToolStripMenuItem
             // 
             ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
-            ExitToolStripMenuItem.Size = new Size(180, 22);
+            ExitToolStripMenuItem.Size = new Size(103, 22);
             ExitToolStripMenuItem.Text = "Ви&хід";
             ExitToolStripMenuItem.Click += ExitToolStripMenuItem_Click;
             // 
@@ -353,7 +354,7 @@
             undoToolStripMenuItem.Enabled = false;
             undoToolStripMenuItem.Name = "undoToolStripMenuItem";
             undoToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Z;
-            undoToolStripMenuItem.Size = new Size(180, 22);
+            undoToolStripMenuItem.Size = new Size(175, 22);
             undoToolStripMenuItem.Text = "&Відмінити";
             // 
             // redoToolStripMenuItem
@@ -361,36 +362,36 @@
             redoToolStripMenuItem.Enabled = false;
             redoToolStripMenuItem.Name = "redoToolStripMenuItem";
             redoToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Y;
-            redoToolStripMenuItem.Size = new Size(180, 22);
+            redoToolStripMenuItem.Size = new Size(175, 22);
             redoToolStripMenuItem.Text = "&Повторити";
             // 
             // toolStripSeparator4
             // 
             toolStripSeparator4.Name = "toolStripSeparator4";
-            toolStripSeparator4.Size = new Size(177, 6);
+            toolStripSeparator4.Size = new Size(172, 6);
             // 
             // выбратьвсеToolStripMenuItem
             // 
             выбратьвсеToolStripMenuItem.Name = "выбратьвсеToolStripMenuItem";
-            выбратьвсеToolStripMenuItem.Size = new Size(180, 22);
+            выбратьвсеToolStripMenuItem.Size = new Size(175, 22);
             выбратьвсеToolStripMenuItem.Text = "Выбрать &все";
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(177, 6);
+            toolStripSeparator1.Size = new Size(172, 6);
             // 
             // renameMainMenuItem
             // 
             renameMainMenuItem.Name = "renameMainMenuItem";
-            renameMainMenuItem.Size = new Size(180, 22);
+            renameMainMenuItem.Size = new Size(175, 22);
             renameMainMenuItem.Text = "Перейменувати";
             renameMainMenuItem.Click += RenameToolStripMenuItem_Click;
             // 
             // timestampMainMenuItem
             // 
             timestampMainMenuItem.Name = "timestampMainMenuItem";
-            timestampMainMenuItem.Size = new Size(180, 22);
+            timestampMainMenuItem.Size = new Size(175, 22);
             timestampMainMenuItem.Text = "Змінити дату/час";
             timestampMainMenuItem.Click += TimestampToolStripMenuItem_Click;
             // 
@@ -404,7 +405,7 @@
             // SettingsToolStripMenuItem
             // 
             SettingsToolStripMenuItem.Name = "SettingsToolStripMenuItem";
-            SettingsToolStripMenuItem.Size = new Size(180, 22);
+            SettingsToolStripMenuItem.Size = new Size(156, 22);
             SettingsToolStripMenuItem.Text = "&Налаштування";
             SettingsToolStripMenuItem.Click += SettingsToolStripMenuItem_Click;
             // 
@@ -418,7 +419,7 @@
             // aboutToolStripMenuItem
             // 
             aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            aboutToolStripMenuItem.Size = new Size(180, 22);
+            aboutToolStripMenuItem.Size = new Size(163, 22);
             aboutToolStripMenuItem.Text = "&Про програму...";
             aboutToolStripMenuItem.Click += aboutToolStripMenuItem_Click;
             // 
@@ -468,7 +469,7 @@
             // menuStrip2
             // 
             menuStrip2.Dock = DockStyle.None;
-            menuStrip2.Items.AddRange(new ToolStripItem[] { sidePanelToolStripMenuItem, infoPanelToolStripMenuItem, previewPanelToolStripMenuItem });
+            menuStrip2.Items.AddRange(new ToolStripItem[] { sidePanelToolStripMenuItem, infoPanelToolStripMenuItem, previewPanelToolStripMenuItem, queueToolStripMenuItem });
             menuStrip2.Location = new Point(0, 0);
             menuStrip2.Name = "menuStrip2";
             menuStrip2.RightToLeft = RightToLeft.Yes;
@@ -526,6 +527,16 @@
             // bindingSourceFiles
             // 
             bindingSourceFiles.AllowNew = false;
+            // 
+            // queueToolStripMenuItem
+            // 
+            queueToolStripMenuItem.BackColor = SystemColors.Control;
+            queueToolStripMenuItem.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            queueToolStripMenuItem.ForeColor = Color.Red;
+            queueToolStripMenuItem.Image = (Image)resources.GetObject("queueToolStripMenuItem.Image");
+            queueToolStripMenuItem.Name = "queueToolStripMenuItem";
+            queueToolStripMenuItem.Size = new Size(28, 20);
+            queueToolStripMenuItem.Click += queueToolStripMenuItem_Click;
             // 
             // MainForm
             // 
@@ -621,5 +632,6 @@
         private ToolStripMenuItem renameMainMenuItem;
         private ToolStripMenuItem timestampContextMenuItem;
         private ToolStripMenuItem timestampMainMenuItem;
+        private ToolStripMenuItem queueToolStripMenuItem;
     }
 }

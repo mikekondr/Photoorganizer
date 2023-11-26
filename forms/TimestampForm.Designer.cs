@@ -231,6 +231,8 @@
             // chkExifTaken
             // 
             chkExifTaken.AutoSize = true;
+            chkExifTaken.Checked = true;
+            chkExifTaken.CheckState = CheckState.Checked;
             chkExifTaken.Location = new Point(24, 72);
             chkExifTaken.Name = "chkExifTaken";
             chkExifTaken.Size = new Size(121, 19);
