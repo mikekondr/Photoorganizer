@@ -188,7 +188,7 @@ namespace PhotoOrganizer
             new SettingsForm().ShowDialog(this);
         }
 
-        /// Context menus
+        /// Commands
         ///
 
         private void RenameToolStripMenuItem_Click(object sender, EventArgs e)
@@ -207,6 +207,26 @@ namespace PhotoOrganizer
             if (selected.Count > 0)
             {
                 Form frm = new RenameForm(selected);
+                frm.ShowDialog(this);
+            }
+        }
+
+        private void TimestampToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedCells.Count == 0)
+                return;
+
+            List<PhotoFile> selected = new List<PhotoFile>();
+            foreach (DataGridViewCell cell in dataGridView1.SelectedCells)
+            {
+                object t = dataGridView1.Rows[cell.RowIndex].DataBoundItem;
+                if (t is PhotoFile)
+                    selected.Add(t as PhotoFile);
+            }
+
+            if (selected.Count > 0)
+            {
+                Form frm = new TimestampForm(selected);
                 frm.ShowDialog(this);
             }
         }

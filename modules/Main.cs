@@ -6,10 +6,10 @@ namespace PhotoOrganizer
 {
     public class MainModule
     {
-        static private CurrentFolder _currentFolder = new CurrentFolder();
+        static private CurrentFolder _currentFolder;
 
-        static private Configuration _config_file = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-        static private KeyValueConfigurationCollection _settings = _config_file.AppSettings.Settings;
+        static private Configuration _config_file;
+        static private KeyValueConfigurationCollection _settings;
 
         static public dynamic get_setting(string key)
         {
@@ -17,16 +17,18 @@ namespace PhotoOrganizer
             if (_settings != null)
             {
                 result = _settings[key];
+                if (result != null)
+                    result = result.Value;
                 
                 switch (key)
                 {
                     case "ShowUnsupportedFiles":
-                        if (bool.TryParse(result.Value, out bool tmp))
+                        if (bool.TryParse(result, out bool tmp))
                             result = tmp;
                         else
                             result = false;
                         break;
-                    case "FilenameMasks":
+                    case "FilenameTemplates":
                         if (result == null)
                             result = "photo_{ddMMyyyy_HHmmss}";
                         break;
@@ -54,6 +56,10 @@ namespace PhotoOrganizer
 
         static public void Init()
         {
+            _currentFolder = new CurrentFolder();
+
+            _config_file = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            _settings = _config_file.AppSettings.Settings;
         }
 
         static public void ChangeCurrentFolder(string path) =>

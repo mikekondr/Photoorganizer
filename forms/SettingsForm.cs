@@ -17,9 +17,9 @@
             chShowUnsupportedFiles.Checked = MainModule.get_setting("ShowUnsupportedFiles");
 
             // Rename
-            string[] list = ((string)MainModule.get_setting("FilenameMasks").Value).Split(',');
+            string[] list = ((string)MainModule.get_setting("FilenameTemplates")).Split(',');
             foreach (string s in list)
-                lstFilenameMasks.Items.Add(s);
+                lstFilenameTewmplates.Items.Add(s);
         }
 
         private void Modify()
@@ -35,13 +35,13 @@
                 MainModule.set_setting("ShowUnsupportedFiles", chShowUnsupportedFiles.Checked);
 
                 List<string> list = new List<string>();
-                foreach (ListViewItem s in lstFilenameMasks.Items)
+                foreach (ListViewItem s in lstFilenameTewmplates.Items)
                 {
                     if (s.Text == "")
                         continue;
                     list.Add(s.Text);
                 }
-                MainModule.set_setting("FilenameMasks", string.Join(",", list));
+                MainModule.set_setting("FilenameTemplates", string.Join(",", list));
 
 
                 MainModule.SaveSettings();
@@ -51,10 +51,10 @@
 
         private void lstFilenameMasks_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (lstFilenameMasks.SelectedItems.Count == 0)
+            if (lstFilenameTewmplates.SelectedItems.Count == 0)
                 txtMask.Text = "";
             else
-                txtMask.Text = lstFilenameMasks.SelectedItems[0].Text;
+                txtMask.Text = lstFilenameTewmplates.SelectedItems[0].Text;
         }
 
         private void btnMaskOk_Click(object sender, EventArgs e)
@@ -62,12 +62,12 @@
             if (txtMask.Text == "")
                 return;
 
-            if (lstFilenameMasks.SelectedItems.Count == 0)
-                lstFilenameMasks.Items.Add(txtMask.Text);
+            if (lstFilenameTewmplates.SelectedItems.Count == 0)
+                lstFilenameTewmplates.Items.Add(txtMask.Text);
             else
-                lstFilenameMasks.SelectedItems[0].Text = txtMask.Text;
+                lstFilenameTewmplates.SelectedItems[0].Text = txtMask.Text;
 
-            lstFilenameMasks.SelectedItems.Clear();
+            lstFilenameTewmplates.SelectedItems.Clear();
 
             Modify();
         }
@@ -83,8 +83,8 @@
 
         private void btnMasksAdd_Click(object sender, EventArgs e)
         {
-            lstFilenameMasks.SelectedItems.Clear();
-            ListViewItem item = lstFilenameMasks.Items.Add("filename");
+            lstFilenameTewmplates.SelectedItems.Clear();
+            ListViewItem item = lstFilenameTewmplates.Items.Add("filename");
             item.Selected = true;
 
             txtMask.Select();
@@ -94,9 +94,9 @@
 
         private void btnMasksRemove_Click(object sender, EventArgs e)
         {
-            if (lstFilenameMasks.SelectedItems.Count != 0)
+            if (lstFilenameTewmplates.SelectedItems.Count != 0)
             {
-                lstFilenameMasks.Items.Remove(lstFilenameMasks.SelectedItems[0]);
+                lstFilenameTewmplates.Items.Remove(lstFilenameTewmplates.SelectedItems[0]);
                 Modify();
             }
         }

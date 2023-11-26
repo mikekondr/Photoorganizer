@@ -37,7 +37,7 @@
             btnMasksRemove = new Button();
             btnMasksAdd = new Button();
             txtMask = new TextBox();
-            lstFilenameMasks = new ListView();
+            lstFilenameTewmplates = new ListView();
             btnOk = new Button();
             btnCancel = new Button();
             tabControl1.SuspendLayout();
@@ -96,7 +96,7 @@
             groupBox1.Controls.Add(btnMasksRemove);
             groupBox1.Controls.Add(btnMasksAdd);
             groupBox1.Controls.Add(txtMask);
-            groupBox1.Controls.Add(lstFilenameMasks);
+            groupBox1.Controls.Add(lstFilenameTewmplates);
             groupBox1.Location = new Point(6, 6);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(324, 240);
@@ -142,18 +142,17 @@
             txtMask.TabIndex = 3;
             txtMask.KeyDown += txtMask_KeyDown;
             // 
-            // lstFilenameMasks
+            // lstFilenameTewmplates
             // 
-            lstFilenameMasks.FullRowSelect = true;
-            lstFilenameMasks.Location = new Point(6, 22);
-            lstFilenameMasks.MultiSelect = false;
-            lstFilenameMasks.Name = "lstFilenameMasks";
-            lstFilenameMasks.Size = new Size(268, 179);
-            lstFilenameMasks.Sorting = SortOrder.Ascending;
-            lstFilenameMasks.TabIndex = 0;
-            lstFilenameMasks.UseCompatibleStateImageBehavior = false;
-            lstFilenameMasks.View = View.List;
-            lstFilenameMasks.SelectedIndexChanged += lstFilenameMasks_SelectedIndexChanged;
+            lstFilenameTewmplates.FullRowSelect = true;
+            lstFilenameTewmplates.Location = new Point(6, 22);
+            lstFilenameTewmplates.MultiSelect = false;
+            lstFilenameTewmplates.Name = "lstFilenameTewmplates";
+            lstFilenameTewmplates.Size = new Size(268, 179);
+            lstFilenameTewmplates.TabIndex = 0;
+            lstFilenameTewmplates.UseCompatibleStateImageBehavior = false;
+            lstFilenameTewmplates.View = View.List;
+            lstFilenameTewmplates.SelectedIndexChanged += lstFilenameMasks_SelectedIndexChanged;
             // 
             // btnOk
             // 
@@ -189,7 +188,6 @@
             MinimizeBox = false;
             Name = "SettingsForm";
             Padding = new Padding(0, 0, 0, 40);
-            ShowIcon = false;
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "Налаштування";
@@ -211,7 +209,7 @@
         private Button btnCancel;
         private TabPage tabRename;
         private GroupBox groupBox1;
-        private ListView lstFilenameMasks;
+        private ListView lstFilenameTewmplates;
         private TextBox txtMask;
         private Button btnMasksRemove;
         private Button btnMasksAdd;
