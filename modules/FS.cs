@@ -3,10 +3,11 @@ using System.Drawing.Imaging;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace PhotoOrganizer
 {
-    public class FSItem: INotifyPropertyChanged
+    public class FSItem : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -22,7 +23,21 @@ namespace PhotoOrganizer
             this.type = type;
         }
 
+        public FSItem(string filepath)
+        {
+            FileInfo file = new FileInfo(filepath);
+            string ext = (file.Extension.Length == 0 ? "" : file.Extension.Substring(1)).ToLower();
+
+            this.fullName = file.FullName;
+            this.name = file.Name;
+            this.type = ext;
+        }
+
+        public FSItem()
+        { }
+
         protected string fullName = "";
+        public string FullName { get { return fullName; } }
 
         protected string name = "";
         public virtual string Name
@@ -76,8 +91,9 @@ namespace PhotoOrganizer
 
     public class UnknownFile: FSItem
     {
-        public UnknownFile(FileInfo file, string type) : base(file, type)
-        { }
+        public UnknownFile(FileInfo file, string type) : base(file, type) { }
+
+        public UnknownFile(string path) : base(path) { }
 
         public override int icon { get => 4; }
     }
@@ -117,18 +133,25 @@ namespace PhotoOrganizer
             }
         }
 
-        public PhotoFile(FileInfo file, string type) : base(file, type)
-        { }
+        public PhotoFile(FileInfo file, string type) : base(file, type) { }
 
-        public void ReadAttributes(Form frm)
+        public PhotoFile(string path) : base(path) { }
+        
+        public void ReadAttributes(Form? frm)
         {
             FileInfo file = new FileInfo(this.fullName);
 
-            frm.Invoke(new Action(() =>
+            if (frm != null)
+                frm.Invoke(new Action(() =>
+                {
+                    this.dateCreated = file.CreationTime;
+                    this.dateModified = file.LastWriteTime;
+                }));
+            else
             {
                 this.dateCreated = file.CreationTime;
                 this.dateModified = file.LastWriteTime;
-            }));
+            }
             try
             {
                 Image img = Image.FromStream(new FileStream(file.FullName, FileMode.Open), false);
@@ -142,16 +165,90 @@ namespace PhotoOrganizer
                                                    CultureInfo.InvariantCulture,
                                                    DateTimeStyles.None,
                                                    out DateTime dt))
-                            frm.Invoke(new Action(() =>
-                            {
+                            if (frm != null)
+                                frm.Invoke(new Action(() =>
+                                {
+                                    this.dateTaken = dt;
+                                }));
+                            else
                                 this.dateTaken = dt;
-                            }));
                     }
                 }
             }
             catch { }
 
             NotifyPropertyChanged();
+        }
+
+        public DateTime auto_datetime(bool force_filename = false)
+        {
+            DateTime result = DateTime.MinValue;
+
+            /// from filename
+            string datetime;
+            Match res;
+            //08/18/2018 07:22:16
+
+            res = Regex.Match(name, "(?:[\\D]+|^)(\\d{8})(?:[\\D])", RegexOptions.IgnoreCase);
+            if (res.Success)
+                datetime = res.Groups[1].Value;
+            else
+                datetime = DateTime.MinValue.ToString("ddMMyyyy");
+
+            res = Regex.Match(name, "(?:[\\D]+)(\\d{6}|\\d{9})(?:[\\D]+|$)", RegexOptions.IgnoreCase);
+            if (res.Success)
+                datetime = datetime + " " + res.Groups[1].Value;
+            else
+                datetime = datetime + " " + DateTime.MinValue.ToString("mmHHss");
+
+            if (datetime == DateTime.MinValue.ToString("ddMMyyyy mmHHss"))
+            {
+                res = Regex.Match(name, "(?:[\\D]+|^)(\\d{17}|\\d{14})(?:[\\D]+|$)", RegexOptions.IgnoreCase);
+                if (res.Success)
+                    datetime = res.Groups[1].Value;
+            }
+
+            string[] vars =
+            {
+                "ddMMyyyy HHmmss",
+                "MMddyyyy HHmmss",
+                "ddMMyyyy HHmmssfff",
+                "MMddyyyy HHmmssfff",
+                "yyyyMMdd HHmmss",
+                "yyyyMMdd HHmmssfff"
+            };
+
+            foreach (string format in vars)
+            {
+                if (DateTime.TryParseExact(datetime, format,
+                        CultureInfo.InvariantCulture, DateTimeStyles.None, out result))
+                {
+                    if (result != DateTime.MinValue)
+                        break;
+                }
+                else
+                    result = DateTime.MinValue;
+            }
+
+            if (!force_filename)
+            {
+                if (result == DateTime.MinValue
+                    && dateTaken != DateTime.MinValue)
+
+                    result = dateTaken;
+
+                if (result == DateTime.MinValue
+                    && dateCreated != DateTime.MinValue)
+
+                    result = dateCreated;
+
+                if (result == DateTime.MinValue
+                    && dateModified != DateTime.MinValue)
+
+                    result = dateModified;
+            }
+
+            return result;
         }
     }
 
@@ -184,6 +281,8 @@ namespace PhotoOrganizer
                 try
                 {
                     _current = new DirectoryInfo(path);
+                    if (_current.Exists == false)
+                        _current = null;
                 }
                 catch { }
         }
@@ -207,6 +306,8 @@ namespace PhotoOrganizer
                 }
                 else
                 {
+                    if (MainModule.get_setting("ShowUnsupportedFiles") == false)
+                        continue;
                     item = new UnknownFile(file, ext);
                 }
                 

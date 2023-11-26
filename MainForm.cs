@@ -10,10 +10,13 @@ namespace PhotoOrganizer
             InitializeComponent();
             MainModule.Init();
 
+            MainModule.Queue.QueueCountChanged += OnQueueCountChanged;
+
             bindingSourceFiles.DataSource = MainModule.CurrentFolder.items;
 
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.DataSource = bindingSourceFiles;
+            dataGridView1.DataBindings.Add("Tag", bindingSourceFiles, "FullName");
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -36,6 +39,14 @@ namespace PhotoOrganizer
                 Thread.Sleep(100);
                 Application.DoEvents();
             }
+        }
+
+        public void OnQueueCountChanged(int queueCount)
+        {
+            if (queueCount == 0)
+                queueToolStripMenuItem.Text = "";
+            else
+                queueToolStripMenuItem.Text = $"Σ χεπη³: {queueCount} ξοεπΰφ³ι";
         }
 
         /// bgReadFolders
@@ -143,6 +154,30 @@ namespace PhotoOrganizer
                     e.CellStyle.Format = "";
             }
         }
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedCells.Count == 0)
+                pictureBox1.Image = null;
+            else
+            {
+                int row = dataGridView1.SelectedCells[0].RowIndex;
+                object o = dataGridView1.Rows[row].DataBoundItem;
+                if (o is PhotoFile)
+                {
+                    try
+                    {
+                        //pictureBox1.Image = new Bitmap((o as PhotoFile).FullName);
+                        pictureBox1.Image = Image.FromFile((o as PhotoFile).FullName);
+                    }
+                    catch
+                    {
+                        pictureBox1.ImageLocation = (o as PhotoFile).FullName;
+                    }
+
+                    propertyGrid1.SelectedObject = o;
+                }
+            }
+        }
 
 
         /// Main menu
@@ -150,13 +185,91 @@ namespace PhotoOrganizer
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form frm = new AboutForm();
-            frm.ShowDialog(this);
+            new AboutForm().ShowDialog(this);
         }
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void SettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new SettingsForm().ShowDialog(this);
+        }
+
+        /// Commands
+        ///
+
+        private void RenameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedCells.Count == 0)
+                return;
+
+            List<PhotoFile> selected = new List<PhotoFile>();
+            foreach (DataGridViewCell cell in dataGridView1.SelectedCells)
+            {
+                object t = dataGridView1.Rows[cell.RowIndex].DataBoundItem;
+                if (t is PhotoFile)
+                    selected.Add(t as PhotoFile);
+            }
+
+            if (selected.Count > 0)
+            {
+                Form frm = new RenameForm(selected);
+                frm.ShowDialog(this);
+            }
+        }
+
+        private void TimestampToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedCells.Count == 0)
+                return;
+
+            List<PhotoFile> selected = new List<PhotoFile>();
+            foreach (DataGridViewCell cell in dataGridView1.SelectedCells)
+            {
+                object t = dataGridView1.Rows[cell.RowIndex].DataBoundItem;
+                if (t is PhotoFile)
+                    selected.Add(t as PhotoFile);
+            }
+
+            if (selected.Count > 0)
+            {
+                Form frm = new TimestampForm(selected);
+                frm.ShowDialog(this);
+            }
+        }
+
+        /// Side panel
+        ///
+
+        private void sidePanelToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            splitContainer2.Panel2Collapsed = !sidePanelToolStripMenuItem.Checked;
+        }
+
+        private void infoPanelToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            splitContainer3.Panel1Collapsed = !infoPanelToolStripMenuItem.Checked;
+        }
+
+        private void previewPanelToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            splitContainer3.Panel2Collapsed = !previewPanelToolStripMenuItem.Checked;
+        }
+
+        private void queueToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (Form frm in Application.OpenForms)
+                if (frm.Name == "QueueForm")
+                {
+                    frm.Show();
+                    return;
+                }
+
+            Form form = new QueueForm();
+            form.Show(this);
         }
     }
 }
