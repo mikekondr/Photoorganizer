@@ -203,14 +203,21 @@ namespace PhotoOrganizer
 
         private void RenameToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedCells.Count == 0)
+            if (dataGridView1.SelectedCells.Count == 0 && dataGridView1.SelectedRows.Count == 0)
                 return;
 
             List<PhotoFile> selected = new List<PhotoFile>();
+            foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+            {
+                object t = row.DataBoundItem;
+                if (t is PhotoFile && selected.IndexOf(t as PhotoFile) == -1)
+                    selected.Add(t as PhotoFile);
+            }
+
             foreach (DataGridViewCell cell in dataGridView1.SelectedCells)
             {
                 object t = dataGridView1.Rows[cell.RowIndex].DataBoundItem;
-                if (t is PhotoFile)
+                if (t is PhotoFile && selected.IndexOf(t as PhotoFile) == -1)
                     selected.Add(t as PhotoFile);
             }
 

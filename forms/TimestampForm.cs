@@ -133,7 +133,7 @@
                 if (chkExifTaken.Checked)
                     newDateTaken = get_datetime(item);
 
-                MainModule.Queue.Add(item, null, newDateCreated, newDateModified, newDateTaken);
+                MainModule.Queue.Add(item, newDateCreated, newDateModified, newDateTaken);
             }
 
             Close();

@@ -33,15 +33,19 @@ namespace PhotoOrganizer
             OnQueueCountChanged();
         }
 
-        public void Add(PhotoFile photoFile, string? newName,
-            DateTime? newDateCreated, DateTime? newDateModified, DateTime? newDateTaken)
+        public void Add(PhotoFile photoFile, DateTime? newDateCreated, DateTime? newDateModified, DateTime? newDateTaken)
         {
-            Add(new Operation(photoFile, newName, newDateCreated, newDateModified, newDateTaken));
+            Add(new Operation(photoFile, null, newDateCreated, newDateModified, newDateTaken));
+        }
+
+        public void Add(PhotoFile photoFile, string newName)
+        {
+            Add(new Operation(photoFile, newName, null, null, null));
         }
 
         public void Update(int index, Operation item)
         {
-            items[index].NewName = item.NewName ?? items[index].NewName;
+            items[index].NewName = item.NewName == "" ? items[index].NewName : item.NewName;
             items[index].NewDateCreated = item.NewDateCreated == DateTime.MinValue ? items[index].NewDateCreated : item.NewDateCreated;
             items[index].NewDateModified = item.NewDateModified == DateTime.MinValue ? items[index].NewDateModified : item.NewDateModified;
             items[index].NewDateTaken = item.NewDateTaken == DateTime.MinValue ? items[index].NewDateTaken : item.NewDateTaken;

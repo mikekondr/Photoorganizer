@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            TreeNode treeNode2 = new TreeNode("Мій комп'ютер", 1, 1);
+            TreeNode treeNode1 = new TreeNode("Мій комп'ютер", 1, 1);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             splitContainer1 = new SplitContainer();
             treeView1 = new TreeView();
             contextMenuStripFolders = new ContextMenuStrip(components);
@@ -68,17 +68,15 @@
             SettingsToolStripMenuItem = new ToolStripMenuItem();
             helpToolStripMenuItem = new ToolStripMenuItem();
             aboutToolStripMenuItem = new ToolStripMenuItem();
-            toolStrip1 = new ToolStrip();
-            aboutToolStripButton = new ToolStripButton();
             toolStripContainer1 = new ToolStripContainer();
             menuStrip2 = new MenuStrip();
             sidePanelToolStripMenuItem = new ToolStripMenuItem();
             infoPanelToolStripMenuItem = new ToolStripMenuItem();
             previewPanelToolStripMenuItem = new ToolStripMenuItem();
+            queueToolStripMenuItem = new ToolStripMenuItem();
             bgReadFolders = new System.ComponentModel.BackgroundWorker();
             bgReadFiles = new System.ComponentModel.BackgroundWorker();
             bindingSourceFiles = new BindingSource(components);
-            queueToolStripMenuItem = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -96,7 +94,6 @@
             splitContainer3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             mainMenuStrip.SuspendLayout();
-            toolStrip1.SuspendLayout();
             toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             toolStripContainer1.ContentPanel.SuspendLayout();
             toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -118,7 +115,7 @@
             // splitContainer1.Panel2
             // 
             splitContainer1.Panel2.Controls.Add(splitContainer2);
-            splitContainer1.Size = new Size(800, 377);
+            splitContainer1.Size = new Size(800, 402);
             splitContainer1.SplitterDistance = 154;
             splitContainer1.TabIndex = 0;
             // 
@@ -130,13 +127,13 @@
             treeView1.ImageList = imageList1;
             treeView1.Location = new Point(0, 0);
             treeView1.Name = "treeView1";
-            treeNode2.ImageIndex = 1;
-            treeNode2.Name = "Узел0";
-            treeNode2.SelectedImageIndex = 1;
-            treeNode2.Text = "Мій комп'ютер";
-            treeView1.Nodes.AddRange(new TreeNode[] { treeNode2 });
+            treeNode1.ImageIndex = 1;
+            treeNode1.Name = "Узел0";
+            treeNode1.SelectedImageIndex = 1;
+            treeNode1.Text = "Мій комп'ютер";
+            treeView1.Nodes.AddRange(new TreeNode[] { treeNode1 });
             treeView1.SelectedImageIndex = 0;
-            treeView1.Size = new Size(154, 377);
+            treeView1.Size = new Size(154, 402);
             treeView1.TabIndex = 0;
             treeView1.BeforeExpand += treeView1_BeforeExpand;
             treeView1.BeforeSelect += treeView1_BeforeSelect;
@@ -150,6 +147,7 @@
             // 
             // UpdateToolStripMenuItem
             // 
+            UpdateToolStripMenuItem.Enabled = false;
             UpdateToolStripMenuItem.Name = "UpdateToolStripMenuItem";
             UpdateToolStripMenuItem.Size = new Size(122, 22);
             UpdateToolStripMenuItem.Text = "Оновити";
@@ -179,7 +177,7 @@
             // splitContainer2.Panel2
             // 
             splitContainer2.Panel2.Controls.Add(splitContainer3);
-            splitContainer2.Size = new Size(642, 377);
+            splitContainer2.Size = new Size(642, 402);
             splitContainer2.SplitterDistance = 490;
             splitContainer2.TabIndex = 3;
             // 
@@ -199,7 +197,7 @@
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowTemplate.Height = 25;
-            dataGridView1.Size = new Size(490, 377);
+            dataGridView1.Size = new Size(490, 402);
             dataGridView1.TabIndex = 0;
             dataGridView1.CellFormatting += dataGridView1_CellFormatting;
             dataGridView1.SelectionChanged += dataGridView1_SelectionChanged;
@@ -233,9 +231,9 @@
             // dateCreated
             // 
             dateCreated.DataPropertyName = "DateCreated";
-            dataGridViewCellStyle4.Format = "G";
-            dataGridViewCellStyle4.NullValue = "\"\"";
-            dateCreated.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Format = "G";
+            dataGridViewCellStyle1.NullValue = "\"\"";
+            dateCreated.DefaultCellStyle = dataGridViewCellStyle1;
             dateCreated.HeaderText = "Дата створення";
             dateCreated.Name = "dateCreated";
             dateCreated.ReadOnly = true;
@@ -243,9 +241,9 @@
             // dateModified
             // 
             dateModified.DataPropertyName = "DateModified";
-            dataGridViewCellStyle5.Format = "G";
-            dataGridViewCellStyle5.NullValue = "\"\"";
-            dateModified.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Format = "G";
+            dataGridViewCellStyle2.NullValue = "\"\"";
+            dateModified.DefaultCellStyle = dataGridViewCellStyle2;
             dateModified.HeaderText = "Дата зміни";
             dateModified.Name = "dateModified";
             dateModified.ReadOnly = true;
@@ -253,9 +251,9 @@
             // dateTaken
             // 
             dateTaken.DataPropertyName = "DateTaken";
-            dataGridViewCellStyle6.Format = "G";
-            dataGridViewCellStyle6.NullValue = "\"\"";
-            dateTaken.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Format = "G";
+            dataGridViewCellStyle3.NullValue = "\"\"";
+            dateTaken.DefaultCellStyle = dataGridViewCellStyle3;
             dateTaken.HeaderText = "Дата зйомки";
             dateTaken.Name = "dateTaken";
             dateTaken.ReadOnly = true;
@@ -294,17 +292,20 @@
             // splitContainer3.Panel2
             // 
             splitContainer3.Panel2.Controls.Add(pictureBox1);
-            splitContainer3.Size = new Size(148, 377);
-            splitContainer3.SplitterDistance = 188;
+            splitContainer3.Size = new Size(148, 402);
+            splitContainer3.SplitterDistance = 200;
             splitContainer3.TabIndex = 3;
             // 
             // propertyGrid1
             // 
             propertyGrid1.Dock = DockStyle.Fill;
+            propertyGrid1.Enabled = false;
+            propertyGrid1.HelpVisible = false;
             propertyGrid1.Location = new Point(0, 0);
             propertyGrid1.Name = "propertyGrid1";
-            propertyGrid1.Size = new Size(148, 188);
+            propertyGrid1.Size = new Size(148, 200);
             propertyGrid1.TabIndex = 2;
+            propertyGrid1.ToolbarVisible = false;
             // 
             // pictureBox1
             // 
@@ -312,7 +313,7 @@
             pictureBox1.Dock = DockStyle.Fill;
             pictureBox1.Location = new Point(0, 0);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(148, 185);
+            pictureBox1.Size = new Size(148, 198);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
@@ -356,6 +357,7 @@
             undoToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Z;
             undoToolStripMenuItem.Size = new Size(175, 22);
             undoToolStripMenuItem.Text = "&Відмінити";
+            undoToolStripMenuItem.Visible = false;
             // 
             // redoToolStripMenuItem
             // 
@@ -364,22 +366,27 @@
             redoToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Y;
             redoToolStripMenuItem.Size = new Size(175, 22);
             redoToolStripMenuItem.Text = "&Повторити";
+            redoToolStripMenuItem.Visible = false;
             // 
             // toolStripSeparator4
             // 
             toolStripSeparator4.Name = "toolStripSeparator4";
             toolStripSeparator4.Size = new Size(172, 6);
+            toolStripSeparator4.Visible = false;
             // 
             // выбратьвсеToolStripMenuItem
             // 
+            выбратьвсеToolStripMenuItem.Enabled = false;
             выбратьвсеToolStripMenuItem.Name = "выбратьвсеToolStripMenuItem";
             выбратьвсеToolStripMenuItem.Size = new Size(175, 22);
             выбратьвсеToolStripMenuItem.Text = "Выбрать &все";
+            выбратьвсеToolStripMenuItem.Visible = false;
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
             toolStripSeparator1.Size = new Size(172, 6);
+            toolStripSeparator1.Visible = false;
             // 
             // renameMainMenuItem
             // 
@@ -423,26 +430,6 @@
             aboutToolStripMenuItem.Text = "&Про програму...";
             aboutToolStripMenuItem.Click += aboutToolStripMenuItem_Click;
             // 
-            // toolStrip1
-            // 
-            toolStrip1.Dock = DockStyle.None;
-            toolStrip1.Items.AddRange(new ToolStripItem[] { aboutToolStripButton });
-            toolStrip1.Location = new Point(3, 24);
-            toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(35, 25);
-            toolStrip1.TabIndex = 2;
-            toolStrip1.Text = "toolStrip1";
-            // 
-            // aboutToolStripButton
-            // 
-            aboutToolStripButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            aboutToolStripButton.Image = (Image)resources.GetObject("aboutToolStripButton.Image");
-            aboutToolStripButton.ImageTransparentColor = Color.Magenta;
-            aboutToolStripButton.Name = "aboutToolStripButton";
-            aboutToolStripButton.Size = new Size(23, 22);
-            aboutToolStripButton.Text = "П&ро програму...";
-            aboutToolStripButton.Click += aboutToolStripMenuItem_Click;
-            // 
             // toolStripContainer1
             // 
             // 
@@ -453,7 +440,7 @@
             // toolStripContainer1.ContentPanel
             // 
             toolStripContainer1.ContentPanel.Controls.Add(splitContainer1);
-            toolStripContainer1.ContentPanel.Size = new Size(800, 377);
+            toolStripContainer1.ContentPanel.Size = new Size(800, 402);
             toolStripContainer1.Dock = DockStyle.Fill;
             toolStripContainer1.Location = new Point(0, 0);
             toolStripContainer1.Name = "toolStripContainer1";
@@ -464,7 +451,6 @@
             // toolStripContainer1.TopToolStripPanel
             // 
             toolStripContainer1.TopToolStripPanel.Controls.Add(mainMenuStrip);
-            toolStripContainer1.TopToolStripPanel.Controls.Add(toolStrip1);
             // 
             // menuStrip2
             // 
@@ -513,6 +499,16 @@
             previewPanelToolStripMenuItem.Text = "Перегляд фото";
             previewPanelToolStripMenuItem.CheckedChanged += previewPanelToolStripMenuItem_CheckedChanged;
             // 
+            // queueToolStripMenuItem
+            // 
+            queueToolStripMenuItem.BackColor = SystemColors.Control;
+            queueToolStripMenuItem.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            queueToolStripMenuItem.ForeColor = Color.Red;
+            queueToolStripMenuItem.Image = (Image)resources.GetObject("queueToolStripMenuItem.Image");
+            queueToolStripMenuItem.Name = "queueToolStripMenuItem";
+            queueToolStripMenuItem.Size = new Size(28, 20);
+            queueToolStripMenuItem.Click += queueToolStripMenuItem_Click;
+            // 
             // bgReadFolders
             // 
             bgReadFolders.WorkerSupportsCancellation = true;
@@ -527,16 +523,6 @@
             // bindingSourceFiles
             // 
             bindingSourceFiles.AllowNew = false;
-            // 
-            // queueToolStripMenuItem
-            // 
-            queueToolStripMenuItem.BackColor = SystemColors.Control;
-            queueToolStripMenuItem.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            queueToolStripMenuItem.ForeColor = Color.Red;
-            queueToolStripMenuItem.Image = (Image)resources.GetObject("queueToolStripMenuItem.Image");
-            queueToolStripMenuItem.Name = "queueToolStripMenuItem";
-            queueToolStripMenuItem.Size = new Size(28, 20);
-            queueToolStripMenuItem.Click += queueToolStripMenuItem_Click;
             // 
             // MainForm
             // 
@@ -568,8 +554,6 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             mainMenuStrip.ResumeLayout(false);
             mainMenuStrip.PerformLayout();
-            toolStrip1.ResumeLayout(false);
-            toolStrip1.PerformLayout();
             toolStripContainer1.BottomToolStripPanel.ResumeLayout(false);
             toolStripContainer1.BottomToolStripPanel.PerformLayout();
             toolStripContainer1.ContentPanel.ResumeLayout(false);
@@ -602,8 +586,6 @@
         private ToolStripMenuItem SettingsToolStripMenuItem;
         private ToolStripMenuItem helpToolStripMenuItem;
         private ToolStripMenuItem aboutToolStripMenuItem;
-        private ToolStrip toolStrip1;
-        private ToolStripButton aboutToolStripButton;
         private ToolStripContainer toolStripContainer1;
         private System.ComponentModel.BackgroundWorker bgReadFolders;
         private ImageList imageList1;
