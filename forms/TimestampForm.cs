@@ -29,22 +29,22 @@
             lblCurr.Text = _current.Name;
 
             if (chkFileCreated.Checked)
-                lblCreated.Text = _current.DateCreated.ToString() + " -->> " + get_datetime();
+                lblCreated.Text = _current.DateCreated.ToString() + " -->> " + get_datetime(_current);
             else
                 lblCreated.Text = "";
 
             if (chkFileModified.Checked)
-                lblModified.Text = _current.DateModified.ToString() + " -->> " + get_datetime();
+                lblModified.Text = _current.DateModified.ToString() + " -->> " + get_datetime(_current);
             else
                 lblModified.Text = "";
 
             if (chkExifTaken.Checked)
-                lblTaken.Text = _current.DateTaken.ToString() + " -->> " + get_datetime();
+                lblTaken.Text = _current.DateTaken.ToString() + " -->> " + get_datetime(_current);
             else
                 lblTaken.Text = "";
         }
 
-        private DateTime get_datetime()
+        private DateTime get_datetime(PhotoFile item)
         {
             DateTime result = new DateTime();
 
@@ -53,16 +53,16 @@
                 switch (comboDateTime.SelectedIndex)
                 {
                     case 0:
-                        result = _current.DateCreated;
+                        result = item.DateCreated;
                         break;
                     case 1:
-                        result = _current.DateModified;
+                        result = item.DateModified;
                         break;
                     case 2:
-                        result = _current.DateTaken;
+                        result = item.DateTaken;
                         break;
                     case 3:
-                        result = _current.auto_datetime();
+                        result = item.auto_datetime();
                         break;
                 }
             }
@@ -72,7 +72,7 @@
             }
 
             if (numStep.Value != 0)
-                result = result.AddSeconds((int)numStep.Value * _selected.IndexOf(_current));
+                result = result.AddSeconds((int)numStep.Value * _selected.IndexOf(item));
 
             return result;
         }
@@ -114,6 +114,29 @@
         private void chk_CheckedChanged(object sender, EventArgs e)
         {
             show_example();
+        }
+
+        private void btnOk_Click(object sender, EventArgs e)
+        {
+            foreach (PhotoFile item in _selected)
+            {
+                DateTime? newDateCreated = null;
+                DateTime? newDateModified = null;
+                DateTime? newDateTaken = null;
+
+                if (chkFileCreated.Checked)
+                    newDateCreated = get_datetime(item);
+
+                if (chkFileModified.Checked)
+                    newDateModified = get_datetime(item);
+
+                if (chkExifTaken.Checked)
+                    newDateTaken = get_datetime(item);
+
+                MainModule.Queue.Add(item, null, newDateCreated, newDateModified, newDateTaken);
+            }
+
+            Close();
         }
     }
 }

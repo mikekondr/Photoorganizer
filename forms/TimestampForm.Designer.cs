@@ -285,6 +285,7 @@
             btnOk.TabIndex = 16;
             btnOk.Text = "Виконати";
             btnOk.UseVisualStyleBackColor = true;
+            btnOk.Click += btnOk_Click;
             // 
             // TimestampForm
             // 

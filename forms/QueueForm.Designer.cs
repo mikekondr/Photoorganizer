@@ -43,7 +43,7 @@
             // dataGridView1
             // 
             dataGridView1.AllowUserToAddRows = false;
-            dataGridView1.AllowUserToDeleteRows = false;
+            dataGridView1.AllowUserToResizeRows = false;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { colName, NewName, DateCreated, NewDateCreated, DateModified, NewDateModified, DateTaken, NewDateTaken });
             dataGridView1.Dock = DockStyle.Top;
@@ -53,12 +53,14 @@
             dataGridView1.RowTemplate.Height = 25;
             dataGridView1.Size = new Size(800, 414);
             dataGridView1.TabIndex = 0;
+            dataGridView1.CellFormatting += dataGridView1_CellFormatting;
+            dataGridView1.UserDeletedRow += dataGridView1_UserDeletedRow;
             // 
             // colName
             // 
             colName.DataPropertyName = "Name";
             colName.HeaderText = "Ім'я файлу";
-            colName.Name = "Name";
+            colName.Name = "colName";
             colName.ReadOnly = true;
             // 
             // NewName

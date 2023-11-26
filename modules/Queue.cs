@@ -6,6 +6,10 @@ namespace PhotoOrganizer
     {
         public BindingList<Operation> items;
 
+        public delegate void QueueCountChangedDelegate(int count);
+
+        public event QueueCountChangedDelegate? QueueCountChanged;
+
         public Queue()
         {
             items = new BindingList<Operation>();
@@ -25,10 +29,12 @@ namespace PhotoOrganizer
                 items.Add(operation);
             else
                 Update(index, operation);
+
+            OnQueueCountChanged();
         }
 
-        public void Add(PhotoFile photoFile, string newName,
-            DateTime newDateCreated, DateTime newDateModified, DateTime newDateTaken)
+        public void Add(PhotoFile photoFile, string? newName,
+            DateTime? newDateCreated, DateTime? newDateModified, DateTime? newDateTaken)
         {
             Add(new Operation(photoFile, newName, newDateCreated, newDateModified, newDateTaken));
         }
@@ -44,14 +50,29 @@ namespace PhotoOrganizer
 
         public int Count { get => items.Count; }
 
-        public void Clear() =>
+        public void Clear()
+        {
             items.Clear();
+            OnQueueCountChanged();
+        }
 
-        public void Remove(Operation item) =>
+        public void Remove(Operation item)
+        {
             items.Remove(item);
+            OnQueueCountChanged();
+        }
 
-        public void Remove(int index) =>
+        public void Remove(int index)
+        {
             items.RemoveAt(index);
+            OnQueueCountChanged();
+        }
+
+        public void OnQueueCountChanged()
+        {
+            if (QueueCountChanged != null)
+                QueueCountChanged(Count);
+        }
     }
 
     public class Operation : PhotoFile
@@ -117,6 +138,8 @@ namespace PhotoOrganizer
             this.newDateCreated = newDateCreated ?? DateTime.MinValue;
             this.newDateModified = newDateModified ?? DateTime.MinValue;
             this.newDateTaken = newDateTaken ?? DateTime.MinValue;
+
+            this.ReadAttributes(null);
 
             DetermineType();
         }

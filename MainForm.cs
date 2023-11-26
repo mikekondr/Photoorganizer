@@ -10,6 +10,8 @@ namespace PhotoOrganizer
             InitializeComponent();
             MainModule.Init();
 
+            MainModule.Queue.QueueCountChanged += OnQueueCountChanged;
+
             bindingSourceFiles.DataSource = MainModule.CurrentFolder.items;
 
             dataGridView1.AutoGenerateColumns = false;
@@ -37,6 +39,14 @@ namespace PhotoOrganizer
                 Thread.Sleep(100);
                 Application.DoEvents();
             }
+        }
+
+        public void OnQueueCountChanged(int queueCount)
+        {
+            if (queueCount == 0)
+                queueToolStripMenuItem.Text = "";
+            else
+                queueToolStripMenuItem.Text = $"Σ χεπη³: {queueCount} ξοεπΰφ³ι";
         }
 
         /// bgReadFolders
@@ -251,8 +261,15 @@ namespace PhotoOrganizer
 
         private void queueToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form frm = new QueueForm();
-            frm.Show(this);
+            foreach (Form frm in Application.OpenForms)
+                if (frm.Name == "QueueForm")
+                {
+                    frm.Show();
+                    return;
+                }
+
+            Form form = new QueueForm();
+            form.Show(this);
         }
     }
 }

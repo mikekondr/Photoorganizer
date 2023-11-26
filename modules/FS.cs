@@ -137,15 +137,21 @@ namespace PhotoOrganizer
 
         public PhotoFile(string path) : base(path) { }
         
-        public void ReadAttributes(Form frm)
+        public void ReadAttributes(Form? frm)
         {
             FileInfo file = new FileInfo(this.fullName);
 
-            frm.Invoke(new Action(() =>
+            if (frm != null)
+                frm.Invoke(new Action(() =>
+                {
+                    this.dateCreated = file.CreationTime;
+                    this.dateModified = file.LastWriteTime;
+                }));
+            else
             {
                 this.dateCreated = file.CreationTime;
                 this.dateModified = file.LastWriteTime;
-            }));
+            }
             try
             {
                 Image img = Image.FromStream(new FileStream(file.FullName, FileMode.Open), false);
@@ -159,10 +165,13 @@ namespace PhotoOrganizer
                                                    CultureInfo.InvariantCulture,
                                                    DateTimeStyles.None,
                                                    out DateTime dt))
-                            frm.Invoke(new Action(() =>
-                            {
+                            if (frm != null)
+                                frm.Invoke(new Action(() =>
+                                {
+                                    this.dateTaken = dt;
+                                }));
+                            else
                                 this.dateTaken = dt;
-                            }));
                     }
                 }
             }
